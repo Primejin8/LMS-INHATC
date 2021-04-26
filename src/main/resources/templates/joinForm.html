@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 페이지</title>
+</head>
+<body>
+<h1>회원가입 페이지</h1>
+<hr/>
+<form action="/join"method='POST'>
+<table>
+			<tr>
+				<th>아이디(학번)</th>
+				<td><input type="text" name="username" placeholder="아이디(username)를 입력하세요"></td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><input type="password" name="password" placeholder="비밀번호 입력하세요"></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" name="name" placeholder="이름을 입력하세요"></td>
+			</tr>
+			
+			<tr>
+				<th>학과</th>
+				<td>
+					<select name="department">
+						<option value="서버에 전송될 값">학과 선택</option>
+						<option value="comsi">컴퓨터시스템과</option>
+						<option value="comjung">컴퓨터정보과</option>
+						<option value="sandi">산업디자인과</option>
+						<option value="gunchuk">건축학과</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type="text" name="email" placeholder="이메일을 입력하세요"></td>
+			</tr>
+			<tr>
+				<th>직책</th>
+				<td>
+					<input type="radio" name="role" value="ROLE_PROF"> 교수 
+					<input type="radio" name="role" value="ROLE_STUDENT"> 학생
+				</td>
+			</tr>
+		</table>
+	<button type="submit">회원가입</button>
+	<a href="/mainpage">로그인 페이지</a>
+	
+</form>
+</body>
+</html>
