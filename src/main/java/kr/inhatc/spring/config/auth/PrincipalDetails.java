@@ -46,26 +46,21 @@ public class PrincipalDetails implements UserDetails {
    public String getUsername() {
       return user.getUsername();
    }
-
+  
    @Override
    public boolean isAccountNonExpired() { //계정 만료
       return true;
    }
-
    @Override
    public boolean isAccountNonLocked() { //계정 잠금
       return true;
    }
-
    @Override
    public boolean isCredentialsNonExpired() { //비번 오래사용
       return true;
    }
-
    @Override
-   public boolean isEnabled() {
-      //사이트에서 1년동안 로그인안하면 휴면계정 
+   public boolean isEnabled() { //사이트에서 1년동안 로그인안하면 휴면계정 
       return true;
    }
-
 }

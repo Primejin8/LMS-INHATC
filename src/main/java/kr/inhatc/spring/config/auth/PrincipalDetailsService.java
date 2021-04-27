@@ -14,7 +14,6 @@ import kr.inhatc.spring.repository.UserRepository;
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
 
-   
    @Autowired
    private UserRepository userRepository;
    
@@ -27,7 +26,4 @@ public class PrincipalDetailsService implements UserDetailsService {
       }
       return null;
    }
-   
-   
-
 }
