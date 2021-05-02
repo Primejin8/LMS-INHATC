@@ -15,43 +15,54 @@
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <body class="sb-nav-fixed">
+    <body class="bg-primary">
 	<div id="layoutAuthentication">
 		<div id="layoutAuthentication_content">
 			<main>
 				<div class="container">
+					<div class="row">
+						navbar 삽입
+					</div>
 					<div class="row justify-content-center">
-						<div class="col-lg-7">
+						<div class="col-lg-6">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
-								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">회원가입</h3>
-								</div>
-								<div class="card-body">
-									<form action="/join" method="POST">
+								<form action="/join" method="POST">
+									<div class="card-header">
+										<h3 class="font-weight-light my-2" style="color: black; font-size: 20px;">회원가입</h3>
+									</div>
+									
+									<div class="card-body">
+										<!-- 아이디 -->
 										<div class="row mb-3">
-											<label for="username" class="col-sm-2 col-form-label">아이디</label>
-											<div class="col-sm-5">
+											<label for="username" class="col-lg-2 col-form-label">아이디</label>
+											<div class="col-lg-5">
 												<input type="text" class="form-control" name="username" placeholder="아이디 입력">
 											</div>
 										</div>
 
 										<div class="row mb-3">
-											<label for="password" class="col-sm-2 col-form-label">비밀번호</label>
-											<div class="col-sm-5">
+											<!-- 비밀번호 -->
+											<label for="password" class="col-lg-2 col-form-label">비밀번호</label>
+											<div class="col-lg-5">
 												<input type="password" class="form-control" name="password" placeholder="비밀번호 입력">
 											</div>
+											<div class="col-lg-5">
+												<input type="password" class="form-control" name="password" placeholder="비밀번호 재입력">
+											</div>
 										</div>
-										
+
+										<!-- 이름 -->
 										<div class="row mb-3">
-											<label for="name" class="col-sm-2 col-form-label">이름</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" name="name" placeholder="비밀번호 입력">
+											<label for="name" class="col-lg-2 col-form-label">이름</label>
+											<div class="col-lg-5">
+												<input type="text" class="form-control" name="name" placeholder="이름 입력">
 											</div>
 										</div>
 										
+										<!-- 학과 -->
 										<div class="row mb-3">
-											<label for="department" class="col-sm-2 col-form-label">학과</label>
-											<div class="col-sm-5">
+											<label for="department" class="col-lg-2 col-form-label">학과</label>
+											<div class="col-lg-5">
 												<select class="form-select" aria-label="Default select example" name="department">
 													<option selected>학과 선택</option>
 													<option value="comsi">컴퓨터시스템과</option>
@@ -62,16 +73,18 @@
 											</div>
 										</div>
 										
+										<!-- 이메일 -->
 										<div class="row mb-3">
-											<label for="email" class="col-sm-2 col-form-label">이메일</label>
-											<div class="col-sm-5">
+											<label for="email" class="col-lg-2 col-form-label">이메일</label>
+											<div class="col-lg-5">
 												<input type="email" class="form-control" name="email" placeholder="이메일 입력">
 											</div>
 										</div>
 										
+										<!-- 직책 -->
 										<div class="row mb-3">
-											<label for="role" class="col-sm-2 col-form-label">직책</label>
-											<div class="col-sm-5">
+											<label for="role" class="col-lg-2 col-form-label">직책</label>
+											<div class="col-lg-5">
 												<div class="form-check form-check-inline">
 													<input class="form-check-input" type="radio" name="role" value="ROLE_STUDENT">
 													<label class="form-check-label" for="role">학생</label>
@@ -82,35 +95,51 @@
 												</div>
 											</div>
 										</div>
-										
-										<div class="form-group mt-4 mb-0">
-											<button class="btn btn-primary btn-block" type="submit">회원가입</button>
-										</div>
-									</form>
-								</div>
-								<div class="card-footer text-center">
-									<div class="small">
-										<a href="/mainpage">이미 회원가입이 되어 있나요?</a>
 									</div>
-								</div>
+								
+									<div class="card-footer ">
+										<div class="row justify-content-between">
+											<div class="form-group col-lg-4">
+												<button class="btn btn-primary btn-block" type="submit">회원가입</button>
+											</div>
+										
+											<div class="small col-lg-4">
+												<a href="/mainpage">이미 회원가입이 되어 있나요?</a>
+											</div>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
-
+		<!-- 하단 폼 작성( 나중에 footer로 지정) -->
 		<div id="layoutAuthentication_footer" class="fixed-bottom">
 			<footer class="py-4 bg-light mt-auto">
-				<div class="container-fluid">
+				<div class="container">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">INHA TECHNICAL COLLEGE</div>
+						<div class="text-muted" style="font-size: 30px">인하공업전문대학</div>
+						<div class="text-muted">22212 인천광역시 미추홀구 인하로100 인하공업전문대학 TEL 032-870-2114</div>
 						<div>
-							<a href="https://www.inhatc.ac.kr/sites/kr/index.do" target="_blank">대표 홈페이지</a> &middot; 
-							<a href="https://portal.inhatc.ac.kr/user/login.face" target="_blank">인하공전 포털</a> &middot; 
-							<a href="https://icims.inhatc.ac.kr/intra/login.jsp" target="_blank">종합정보시스템</a> &middot; 
-							<a href="https://library.inhatc.ac.kr/Cheetah/INHA/Index/" target="_blank">도서관</a>
+						<nav aria-label="breadcrumb" class="mt-3">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a
+									href="https://www.inhatc.ac.kr/sites/kr/index.do"
+									target="_blank">대표 홈페이지</a></li>
+								<li class="breadcrumb-item"><a
+									href="https://portal.inhatc.ac.kr/user/login.face"
+									target="_blank">인하공전 포털</a></li>
+								<li class="breadcrumb-item"><a
+									href="https://icims.inhatc.ac.kr/intra/login.jsp"
+									target="_blank">종합정보시스템</a></li>
+								<li class="breadcrumb-item"><a
+									href="https://library.inhatc.ac.kr/Cheetah/INHA/Index/"
+									target="_blank">도서관</a></li>
+							</ol>
+						</nav>
 						</div>
 					</div>
 				</div>
