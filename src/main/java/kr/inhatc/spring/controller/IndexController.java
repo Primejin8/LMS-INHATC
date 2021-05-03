@@ -22,10 +22,15 @@ public class IndexController {
 	
 	//localhost:8001
 	@GetMapping({"","/"})
-	public String index() {
+	public String main() {
 		//머스테치 기본폴더 src/main/resources/
 		//뷰리절버 설정: templates (prefix).mustache (suffix) //application.yml에 생략가능
 		return "mainpage";
+	}
+	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
 	}
 	
 	@GetMapping("/std")
@@ -53,7 +58,7 @@ public class IndexController {
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		userRepository.save(user); //회원가입은 잘되는데. 비밀번호 :1234-> 시큐리티 로그인 불가능(패스워드가 암호가 안돼서)
-		return "redirect:/mainpage"; //redirect로 주면 /loginForm이라는 함수로 호출
+		return "redirect:/mainpage"; //redirect로 주면 /mainpage라는 함수로 호출
 	}
 	
 //	//@secured("ROLE_ADMIN") 특정메소드에 간단히 걸고 싶을때 쓰면됨
