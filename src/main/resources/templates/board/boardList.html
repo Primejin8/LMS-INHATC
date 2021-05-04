@@ -5,35 +5,34 @@
 </head>
 <body>
 <!-- 헤더 추가 부분 -->
-<header th:insert="fragments/header.html"></header>
-<!-- ---------------------------------- -->	
 <div class="container-fluid">
     <table class="table">
         <thead class="thead-light">
-        <tr class="text-center">
-            <th scope="col">#</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">작성일</th>
-        </tr>
-        </thead>
+			<tr class="text-center">
+				<th scope="col">#</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
+				<th scope="col">작성일</th>
+			</tr>
+		</thead>
+		
         <tbody>
-        <tr class="text-center" th:each="post : ${postList}">
-            <th scope="row">
-                <span th:text="${post.id}"></span>
-            </th>
-            <td>
-                <a th:href="@{'/post/' + ${post.id}}">
-                    <span th:text="${post.title}"></span>
-                </a>
-            </td>
-            <td>
-                <span th:text="${post.author}"></span>
-            </td>
-            <td>
-                <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-            </td>
-        </tr>
+        	<tr class="text-center" th:each="post : ${postList}">
+            	<th scope="row">
+                	<span th:text="${post.id}"></span>
+            	</th>
+            	<td>
+                	<a th:href="@{'/post/' + ${post.id}}">
+                    	<span th:text="${post.title}"></span>
+                	</a>
+            	</td>
+            	<td>
+                	<span th:text="${post.author}"></span>
+            	</td>
+            	<td>
+                	<span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            	</td>
+        	</tr>
         </tbody>
     </table>
     

@@ -26,16 +26,8 @@ public class BoardController {
 		model.addAttribute("postList", list);
 		return "board/boardList";
 	}
-	@GetMapping("/boardWrite")
-	public String boardWrite() {
-		return "/board/boardWrite";
-	}
 	@GetMapping("/post")
 	public String post() {
 		return "board/post";
 	}
-//	@GetMapping("/list")
-//	public String list() {
-//		return "list";
-//	}
 }
