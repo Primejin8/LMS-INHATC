@@ -46,6 +46,7 @@ public class IndexController {
 	public String mainpage() {
 		return "mainpage";
 	}
+	
 	@GetMapping("/joinForm")
 	public String joinForm() {
 		return "joinForm";

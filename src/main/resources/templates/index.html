@@ -1,13 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- config.html 추가하여 css, script 설정 -->
+<head th:insert="/fragments/config.html">
 	<title>인하공업전문대학</title>
 </head>
 
@@ -18,9 +12,10 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 </th:block>
-<div layout:fragment="content">
-	<div style="border: 1px solid red">
-		index.html 입니다.
-	</div>
-</div>
+<body>
+	<!-- 헤더 추가 부분 -->
+	<header th:insert="fragments/header.html">
+		<p>test</p>
+	</header>
+</body>
 </html>

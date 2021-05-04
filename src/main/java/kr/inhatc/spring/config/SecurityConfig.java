@@ -26,14 +26,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests()
 		// 직책에 따라 권한을 주어 해당 직책이 아니면 접근 불가
-		.antMatchers("/std/**").access("hasRole('ROLE_STUDENT')")
-		.antMatchers("/prof/**").access("hasRole('ROLE_PROF')")
-		.anyRequest().permitAll() // 나머지
-		.and()
-		.formLogin()
-		.loginPage("/mainpage") // 로그인 기능 구현한 페이지
-		.loginProcessingUrl("/login") //login주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행해줌
-		.defaultSuccessUrl("/"); // 요청하면 /로 그페이지로 그대로 보내줌
+			.antMatchers("/std/**").access("hasRole('ROLE_STUDENT')")
+			.antMatchers("/prof/**").access("hasRole('ROLE_PROF')")
+			.antMatchers("/index/**").access("hasRole('ROLE_STUDENT') or hasRole('ROLE_PROF')")
+			.anyRequest().permitAll() // 나머지
+			.and()
+			.formLogin()
+				.loginPage("/mainpage") // 로그인 기능 구현한 페이지
+				.loginProcessingUrl("/login") // login주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행해줌, 로그인 form의 액션과 일치
+				.defaultSuccessUrl("/index") // 로그인 성공 시 이동경로
+			.and()
+			.logout()
+			.logoutSuccessUrl("/mainpage")
+			.invalidateHttpSession(true).deleteCookies("user");
+
 	}
 
 }
