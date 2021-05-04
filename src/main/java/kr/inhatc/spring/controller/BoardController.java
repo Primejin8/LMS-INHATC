@@ -24,11 +24,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-//	없어도 되는 생성자?
-//	public BoardController(BoardService boardService) {
-//		this.boardService = boardService;
-//	}
-	
 	@GetMapping("/boardList")
 	public String boardList(Model model) {
 		List<BoardDto> boardDtoList = boardService.getBoardList();

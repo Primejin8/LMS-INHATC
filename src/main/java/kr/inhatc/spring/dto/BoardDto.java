@@ -36,7 +36,8 @@ public class BoardDto {
 		   return build;
 	   }
 	   @Builder
-	   public BoardDto(int board_id, String board_writer, String board_title, String board_content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+	   public BoardDto(int board_id, String board_writer, String board_title, 
+			   String board_content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		   this.board_id= board_id;
 		   this.board_writer= board_writer;
 		   this.board_title= board_title;
