@@ -1,41 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<header th:fragment="headerFragment">
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-				aria-controls="navbarNavDropdown" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Features</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
-					</li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link
-					</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-				</ul>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+	.block{
+		display: block;
+		position: sticky;
+	}
+	.p_fixed{
+		position: fixed;
+		height: 100vh;
+		display: block;
+	}
+	.sidebar_text{
+		text-align: center;
+	}
+</style>
+<body>
+	<div class="container-fluid">
+		<div class="row block" style="top: 0px; left: 0px;">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<div class="container-fluid offset-2">
+					<a class="navbar-brand" href="/index">Home</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+			
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<span class="navbar-text" style="color: gray;">사용자 이름</span>
+							</li>
+						</ul>
+						<!-- 로그아웃 -->
+						<a href="/logout" onclick="document.getElementById('logout-form').submit();" class="btn btn-outline-success">Logout</a>
+						<form id="logout" action="<c:url value='/logout'/>" method="POST" class="d-flex">
+							<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" class="form-control me-2" />
+						</form>
+					</div>
+				</div>
+			</nav>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 p_fixed sidebar_text" style="left: 0; background-color: gray;">
+				<a href="boardList">게시판</a>
+			</div>
+			<div class="col-10 p_fixed" style="right: 0; background-color: dimgray;">
 			</div>
 		</div>
-	</nav>
-
-</header>
-
+	</div>
+</body>
 </html>
