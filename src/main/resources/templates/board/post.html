@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
-    <title>게시판 - 글쓰기</title>
+<title>인하공업전문대학</title>
 </head>
-<body>
-	<div class="container">
-    <form action="/post" method="post">
-        <div class="form-group row">
-            <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-            <div class="col-sm-10">
-                <input type="text" name="board_title" class="form-control" id="board_title">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-            <div class="col-sm-10">
-                <input type="text" name="board_writer" class="form-control" id="board_writer">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-            <div class="col-sm-10">
-                <textarea type="text" name="board_content" class="form-control" id="board_content"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-auto mr-auto"></div>
-            <div class="col-auto">
-                <input class="btn btn-primary" type="submit" role="button" value="글쓰기">
-            </div>
-        </div>
-    </form>
-	</div>
-</body>
+<th:block
+	th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<body>
+			<div class="container">
+				<form action="/post" method="post">
+					<div class="form-group row">
+						<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+						<div class="col-sm-10">
+							<input type="text" name="board_title" class="form-control"
+								id="board_title">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
+						<div class="col-sm-10">
+							<input type="text" name="board_writer" class="form-control"
+								id="board_writer">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+						<div class="col-sm-10">
+							<textarea type="text" name="board_content" class="form-control"
+								id="board_content"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-auto mr-auto"></div>
+						<div class="col-auto">
+							<input class="btn btn-primary" type="submit" role="button"
+								value="글쓰기">
+						</div>
+					</div>
+				</form>
+			</div>
+		</body>
+	</th:block>
+</th:block>
 </html>

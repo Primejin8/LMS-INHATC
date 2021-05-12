@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
-<title>Insert title here</title>
+	<title>인하공업전문대학</title>
 </head>
-<body>
-<!-- 헤더 추가 부분 -->
+<th:block th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h3 class="m-3">토론방</h3>
 <div class="container-fluid">
     <table class="table">
         <thead class="thead-light">
@@ -42,5 +44,6 @@
         </div>
     </div>
 </div>
-</body>
+	</th:block>
+</th:block>
 </html>

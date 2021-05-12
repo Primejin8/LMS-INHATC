@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-<title>글 수정</title>
-	<head th:insert="fragments/config.html">
-<title>글 수정</title>
+<!-- config.html 추가하여 css, script 설정 -->
+<head th:insert="/fragments/config.html">
+	<title>인하공업전문대학</title>
 </head>
-<body>
+<th:block th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<body>
 <div class="container">
     <form th:action="@{'/post/edit/' + ${post.board_id}}" method="post">
         <input type="hidden" name="_method" value="put"/>
@@ -36,8 +37,7 @@
         </div>
     </form>
 </div>
-<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
 </body>
+	</th:block>
+</th:block>
 </html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:insert="/fragments/config"> 
-<title>글 상세보기</title>
-<head th:insert="fragments/config.html">
-	<title>글 상세보기</title>
+<!-- config.html 추가하여 css, script 설정 -->
+<head th:insert="/fragments/config.html">
+	<title>인하공업전문대학</title>
 </head>
-<body>
+<th:block th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<body>
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -28,4 +29,6 @@
     </div>
 </div>
 </body>
+	</th:block>
+</th:block>
 </html>
