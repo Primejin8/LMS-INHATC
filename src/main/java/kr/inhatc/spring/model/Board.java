@@ -9,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,9 +36,11 @@ public class Board {
 
    private String board_title;
 
-   @Column(columnDefinition = "text")
+   @Lob	//썸머노트 쓰기 위해 대용량 데이터(이미지,비디오 등 데이터 저장) 어노테이션
    private String board_content;
 
+   private Long file_id;
+   
    @CreatedDate
    @Column(updatable = false)
    private LocalDateTime createdDate;
@@ -47,11 +50,11 @@ public class Board {
 //   private String delete_yn;
    
    @Builder
-   public Board(int board_id, String board_writer, String board_title, String board_content) {
+   public Board(int board_id, String board_writer, String board_title, String board_content,Long file_id) {
 	   this.board_id = board_id;
 	   this.board_writer= board_writer;
 	   this.board_title= board_title;
 	   this.board_content= board_content;
-	   
+	   this.file_id= file_id;
    }
 }

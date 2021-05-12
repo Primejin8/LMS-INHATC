@@ -51,6 +51,7 @@ public class BoardService {
 				.board_id(board.getBoard_id())
 				.board_writer(board.getBoard_writer())
 				.board_title(board.getBoard_title())
+				.file_id(board.getFile_id())
 				.board_content(board.getBoard_content())
 				.createdDate(board.getCreatedDate())
 				.build();
