@@ -43,6 +43,7 @@ public class BoardService {
 		
 		return boardDtoList;
 	}
+	
 	@Transactional
 	public BoardDto getPost(int board_id) {
 		Board board = boardRepository.findById(board_id).get();

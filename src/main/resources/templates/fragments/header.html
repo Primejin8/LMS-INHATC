@@ -1,57 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="setContent(content)">
 <style>
-	.block{
-		display: block;
-		position: sticky;
+	.header{
+		background-color: #00aaff;
 	}
-	.p_fixed{
-		position: fixed;
-		height: 100vh;
-		display: block;
-	}
-	.sidebar_text{
-		text-align: center;
+	.sidebar{
+		background-color: #2d2b2f;
 	}
 </style>
-<body>
-	<div class="container-fluid">
-		<div class="row block" style="top: 0px; left: 0px;">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<div class="container-fluid offset-2">
-					<a class="navbar-brand" href="/index">Home</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-			
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<span class="navbar-text" style="color: gray;">사용자 이름</span>
-							</li>
-						</ul>
-						<!-- 로그아웃 -->
-						<a href="/logout" onclick="document.getElementById('logout-form').submit();" class="btn btn-outline-success">Logout</a>
-						<form id="logout" action="<c:url value='/logout'/>" method="POST" class="d-flex">
-							<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" class="form-control me-2" />
-						</form>
+	<body>
+		<div class="d-flex" id="wrapper">
+			<!-- Sidebar-->
+			<div class="border-right" id="sidebar-wrapper">
+				<div class="sidebar-heading">
+					<div class="row">
+						<div class="col-3">
+							<img alt="인하공업전문대학" src="/img/logo.jpeg" width="40px" height="40px">
+						</div>
+						<div class="col-9">
+							<div style="font-size: 15px">인하공업전문대학</div>
+							<div style="font-size: 10px">INHA TECHNICAL COLLEGE</div>
+						</div>
 					</div>
 				</div>
-			</nav>
-		</div>
-		
-		<div class="row">
-			<div class="col-2 p_fixed sidebar_text" style="left: 0; background-color: gray;">
-				<a href="boardList">게시판</a>
+				<div class="list-group list-group-flush sidebar" style="height: 100vh">
+					<a class="list-group-item list-group-item-action sidebar" href="/boardList">boardList</a>
+					<a class="list-group-item list-group-item-action sidebar" href="/index">index</a>
+					<a class="list-group-item list-group-item-action sidebar" href="#!">Overview</a>
+				</div>
 			</div>
-			<div class="col-10 p_fixed" style="right: 0; background-color: dimgray;">
+			<!-- Page Content-->
+			<div id="page-content-wrapper">
+				<nav class="navbar navbar-expand-lg navbar-light border-bottom header justify-content-between" style="height: 70px">
+					<a class="nav-link" href="/index" style="color: black">Home</a>
+					<!-- 로그아웃 -->
+					<div> 
+					<a href="/logout"
+						onclick="document.getElementById('logout-form').submit();"
+						class="btn btn-outline-success">Logout</a>
+						<form id="logout" action="<c:url value='/logout'/>" method="POST">
+						<input name="${_csrf.parameterName}" type="hidden"
+							value="${_csrf.token}" class="form-control me-2" />
+						</form>
+					</div>
+				</nav>
+				<div class="container-fluid">
+					<th:block th:replace="${content}"></th:block>
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
+</th:block>
 </html>
