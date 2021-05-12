@@ -3,78 +3,76 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
-<title>인하공업전문대학</title>
+<title>게시판</title>
 </head>
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<body>
-			<div class="container">
-				<form action="/post" method="post">
-					<div class="form-group row">
-						<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-						<div class="col-sm-10">
-							<input type="text" name="board_title" class="form-control"
-								id="board_title">
-						</div>
+	<body>
+		<h3 class="m-3">글쓰기</h3>
+		<div class="container-fluid">
+			<form action="/post" method="post">
+				<div class="form-group row">
+					<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+					<div class="col-sm-10">
+						<input type="text" name="board_title" class="form-control"
+							id="board_title">
 					</div>
-					<div class="form-group row">
-						<label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-						<div class="col-sm-10">
-							<input type="text" name="board_writer" class="form-control"
-								id="board_writer">
-						</div>
+				</div>
+				<div class="form-group row">
+					<label for="inputWriter" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
+					<div class="col-sm-10">
+						<input type="text" name="board_writer" class="form-control"
+							id="board_writer">
 					</div>
-					<div class="form-group row">
-						<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-						<div class="col-sm-10">
-							<!-- <textarea type="text" name="board_content" class="form-control" id="board_content"></textarea>
-               -->
-							<textarea class="form-control summernote" rows="5"
-								id="board_content" name="board_content"></textarea>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부
-								파일</strong></label>
-						<div class="col-sm-10">
-							<div class="custom-file" id="inputFile">
-								<input name="file" type="file" class="custom-file-input"
-									id="customFile"> <label class="custom-file-label"
-									for="customFile">파일을 선택해 주세요.</label>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-auto mr-auto"></div>
-						<div class="col-auto">
-							<input class="btn btn-primary" type="submit" role="button"
-								value="글쓰기">
-						</div>
-					</div>
-				</form>
-			</div>
-			<!-- 썸머노트 추가 부분 -->
-			<script>
-				$(document).ready(function() {
-					$('.summernote').summernote({
-						tabsize : 2,
-						height : 300
-					});
-				});
-			</script>
-			<!-- 파일 업로드 추가 부분 -->
-			<script>
-				$(".custom-file-input").on(
-						"change",
-						function() {
-							var fileName = $(this).val().split("\\").pop();
-							$(this).siblings(".custom-file-label").addClass(
-									"selected").html(fileName);
-						});
-			</script>
+				</div>
 
-		</body>
+				<div class="form-group row">
+					<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+					<div class="col-sm-10">
+						<!-- <textarea type="text" name="board_content" class="form-control" id="board_content"></textarea>
+               -->
+						<textarea class="form-control summernote" rows="5"
+							id="board_content" name="board_content"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부
+							파일</strong></label>
+					<div class="col-sm-10">
+						<div class="custom-file" id="inputFile">
+							<input name="file" type="file" class="custom-file-input"
+								id="customFile"> <label class="custom-file-label"
+								for="customFile">파일을 선택해 주세요.</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-auto mr-auto"></div>
+					<div class="col-auto">
+						<input class="btn btn-primary" type="submit" role="button"
+							value="글쓰기">
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- 썸머노트 추가 부분 -->
+		<script>
+        $(document).ready(function(){
+            $('.summernote').summernote({
+            	tabsize: 2,
+            	height: 300
+            });
+        });
+    	</script>
+		<!-- 파일 업로드 추가 부분 -->
+		<script>
+		$(".custom-file-input").on("change", function() {
+  		var fileName = $(this).val().split("\\").pop();
+  		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+		</script>
+	</body>
 	</th:block>
 </th:block>
 </html>
