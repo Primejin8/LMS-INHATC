@@ -8,8 +8,8 @@
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<body>
-			<div class="container">
+		<h3 class="m-3">글 수정</h3>
+			<div class="container-fuild">
 				<form th:action="@{'/post/edit/' + ${post.board_id}}" method="post">
 					<input type="hidden" name="_method" value="put" /> <input
 						type="hidden" name="id" th:value="${post.board_id}" />
@@ -51,7 +51,6 @@
             	});
             });
       	 </script>
-		</body>
 	</th:block>
 </th:block>
 </html>
