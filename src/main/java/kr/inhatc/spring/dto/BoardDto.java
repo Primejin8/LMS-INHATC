@@ -21,6 +21,7 @@ public class BoardDto {
 	   private String board_title;
 	   private String board_writer;
 	   private String board_content;
+	   private Long file_id;
 	   private LocalDateTime createdDate;
 	   private LocalDateTime modifiedDate;
 //	   private String delete_yn;
@@ -32,16 +33,17 @@ public class BoardDto {
 				   .board_title(board_title)
 				   .board_content(board_content)
 				   .board_writer(board_writer)
+				   .file_id(file_id)
 				   .build();
 		   return build;
 	   }
 	   @Builder
-	   public BoardDto(int board_id, String board_writer, String board_title, 
-			   String board_content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+	   public BoardDto(int board_id, String board_writer, String board_title, String board_content, Long file_id, LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		   this.board_id= board_id;
 		   this.board_writer= board_writer;
 		   this.board_title= board_title;
 		   this.board_content= board_content;
+		   this.file_id= file_id;
 		   this.createdDate= createdDate;
 		   this.modifiedDate= modifiedDate;
 	   }

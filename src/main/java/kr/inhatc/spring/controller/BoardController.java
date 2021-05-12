@@ -24,10 +24,16 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+//	없어도 되는 생성자?
+//	public BoardController(BoardService boardService) {
+//		this.boardService = boardService;
+//	}
+	
+	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
 	public String boardList(Model model) {
 		List<BoardDto> boardDtoList = boardService.getBoardList();
-		model.addAttribute("postList", boardDtoList);
+		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
 		return "board/boardList";
 	}
 	@GetMapping("/post")
@@ -40,6 +46,7 @@ public class BoardController {
 		return "redirect:/boardList";
 	}
 	//글 상세보기 창 매핑
+	//URL경로에 변수를 넘겨주는 역할 Pathvariable 
 	@GetMapping("/post/{board_id}")
 	public String detail(@PathVariable("board_id") int board_id, Model model) {
 		BoardDto boardDto = boardService.getPost(board_id);
