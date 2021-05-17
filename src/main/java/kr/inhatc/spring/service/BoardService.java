@@ -33,7 +33,7 @@ public class BoardService {
 		for(Board board : boardList) {
 			BoardDto boardDto = BoardDto.builder()
 					.board_id(board.getBoard_id())
-					.board_title(board.getBoard_title())
+					.boardTitle(board.getBoardTitle())
 					.board_content(board.getBoard_content())
 					.board_writer(board.getBoard_writer())
 					.createdDate(board.getCreatedDate())
@@ -51,7 +51,7 @@ public class BoardService {
 		BoardDto boardDto = BoardDto.builder()
 				.board_id(board.getBoard_id())
 				.board_writer(board.getBoard_writer())
-				.board_title(board.getBoard_title())
+				.boardTitle(board.getBoardTitle())
 				.file_id(board.getFile_id())
 				.board_content(board.getBoard_content())
 				.createdDate(board.getCreatedDate())
@@ -62,5 +62,29 @@ public class BoardService {
 	@Transactional
 	public void deltePost(int board_id) {
 		boardRepository.deleteById(board_id);
+	}
+	
+	@Transactional
+	public List<BoardDto> searchPosts(String keyword) {
+	    List<Board> boardEntities = boardRepository.findByBoardTitleContaining(keyword);
+	    List<BoardDto> boardDtoList = new ArrayList<>();
+
+	    if (boardEntities.isEmpty()) return boardDtoList;
+
+	    for (Board boardEntity : boardEntities) {
+	        boardDtoList.add(this.convertEntityToDto(boardEntity));
+	    }
+
+	    return boardDtoList;
+	}
+
+	private BoardDto convertEntityToDto(Board boardEntity) {
+	    return BoardDto.builder()
+	            .board_id(boardEntity.getBoard_id())
+	            .boardTitle(boardEntity.getBoardTitle())
+	            .board_content(boardEntity.getBoard_content())
+	            .board_writer(boardEntity.getBoard_writer())
+	            .createdDate(boardEntity.getCreatedDate())
+	            .build();
 	}
 }

@@ -10,20 +10,25 @@
 	<th:block th:fragment="content">
 		<body>
 			<h3 class="m-3">글 상세보기</h3>
-			<div class="container-fluid">
+			<div class="container">
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title"
-							th:text="@{${post.board_title} + ' - ' + ${post.board_writer}}"></h5>
+							th:text="@{${post.boardTitle} + ' - ' + ${post.board_writer}}"></h5>
 						<p class="card-text">
 							<small class="text-muted"
 								th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></small>
 						</p>
 						<textarea name="board_content" class="form-control summernote"
 							id="board_content" th:text="${post.board_content}"></textarea>
+					
+						<div th:if="${post.file_id != null}">
+                			<strong>첨부파일 : </strong>
+                			<a th:href="@{'/download/' + ${post.file_id}}" th:text="${fileName}"></a>
+        			    </div>
+					
 					</div>
 				</div>
-
 
 				<div class="row mt-3">
 					<div class="col-auto mr-auto"></div>
