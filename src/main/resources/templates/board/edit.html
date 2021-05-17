@@ -9,6 +9,7 @@
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
 		<h3 class="m-3">글 수정</h3>
+		<body>
 			<div class="container-fuild">
 				<form th:action="@{'/post/edit/' + ${post.board_id}}" method="post">
 					<input type="hidden" name="_method" value="put" /> <input
@@ -31,7 +32,7 @@
 						<label for="board_content" class="col-sm-2 col-form-label"><strong>내용</strong></label>
 						<div class="col-sm-10">
 							<textarea name="board_content" class="form-control summernote"
-								id="board_content" th:value="${post.board_content}"></textarea>
+								id="board_content" th:text="${post.board_content}"></textarea>
 						</div>
 					</div>
 					<div class="row">
@@ -51,6 +52,7 @@
             	});
             });
       	 </script>
+		</body>
 	</th:block>
 </th:block>
 </html>

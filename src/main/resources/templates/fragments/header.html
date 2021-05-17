@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="setContent(content)">
 <style>
-	.header{
+	.header {
 		background-color: #00aaff;
 	}
-	.sidebar{
+	.sidebar {
 		background-color: #2d2b2f;
+		text-align: center;
+	}
+	@media (max-width: 1200px){
+		.dis{
+			display:none;
+		}
 	}
 </style>
 	<body>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar-->
-			<div class="border-right" id="sidebar-wrapper">
-				<div class="sidebar-heading">
+			<div class="border-right dis" id="sidebar-wrapper" style="height: 100vh; width: 20%;">
+				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem;">
 					<div class="row">
 						<div class="col-3">
 							<img alt="인하공업전문대학" src="/img/logo.jpeg" width="40px" height="40px">
@@ -24,15 +30,18 @@
 						</div>
 					</div>
 				</div>
-				<div class="list-group list-group-flush sidebar" style="height: 100vh">
-					<a class="list-group-item list-group-item-action sidebar" href="/boardList">boardList</a>
-					<a class="list-group-item list-group-item-action sidebar" href="/index">index</a>
-					<a class="list-group-item list-group-item-action sidebar" href="#!">Overview</a>
+				<div class="list-group list-group-flush sidebar" style="height: 100%; position: sticky;">
+					<a class="list-group-item list-group-item-action sidebar" href="#">내 강의실</a>
+					<a class="list-group-item list-group-item-action sidebar" href="#">강의 목록</a>
+					<a class="list-group-item list-group-item-action sidebar" href="/boardList">토론방</a>
 				</div>
 			</div>
+			
 			<!-- Page Content-->
-			<div id="page-content-wrapper">
-				<nav class="navbar navbar-expand-lg navbar-light border-bottom header justify-content-between" style="height: 70px">
+			<div id="page-content-wrapper" style="width: 100%; ">
+				<nav class="navbar navbar-light border-bottom header justify-content-between"
+					style="height: 70px; position: relative; display: flex; flex-wrap: wrap; 
+					align-items: center; justify-content: space-between; padding: 0.5rem 1rem;">
 					<a class="nav-link" href="/index" style="color: black">Home</a>
 					<!-- 로그아웃 -->
 					<div> 
@@ -41,12 +50,12 @@
 						class="btn btn-outline-success">Logout</a>
 						<form id="logout" action="<c:url value='/logout'/>" method="POST">
 						<input name="${_csrf.parameterName}" type="hidden"
-							value="${_csrf.token}" class="form-control me-2" />
+							value="${_csrf.token}" class="form-control me-2"/>
 						</form>
 					</div>
 				</nav>
 				<div class="container-fluid">
-					<th:block th:replace="${content}"></th:block>
+					<th:block th:insert="${content}"></th:block>
 				</div>
 			</div>
 		</div>
