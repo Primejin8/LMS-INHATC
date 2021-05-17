@@ -10,6 +10,13 @@
 	<th:block th:fragment="content">
 		<h3 class="m-3">토론방</h3>
 		<div class="container-fluid">
+			<form action="/search" method="GET">
+				<div style=float:right>
+					<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+				</div>
+
+				<button style=float:right>검색하기</button>
+			</form>
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
@@ -24,7 +31,7 @@
 					<tr class="text-center" th:each="post : ${postList}">
 						<th scope="row"><span th:text="${post.board_id}"></span></th>
 						<td><a th:href="@{'/post/' + ${post.board_id}}"> <span
-								th:text="${post.board_title}"></span>
+								th:text="${post.boardTitle}"></span>
 						</a></td>
 						<td><span th:text="${post.board_writer}"></span></td>
 						<td><span
@@ -36,9 +43,19 @@
 
 			<div class="row">
 				<div class="col">
-					<a class="btn btn-primary" th:href="@{/post}" role="button">글쓰기</a>
+					<a class="btn btn-primary float-right" th:href="@{/post}" role="button">글쓰기</a>
 				</div>
 			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled"><a class="page-link" href="#"
+						tabindex="-1" aria-disabled="true">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 		</div>
 	</th:block>
 </th:block>

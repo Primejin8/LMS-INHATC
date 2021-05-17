@@ -16,6 +16,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +36,8 @@ public class Board {
    
    private String board_writer;
 
-   private String board_title;
+   @NotNull
+   private String boardTitle;
 
    @Lob	//썸머노트 쓰기 위해 대용량 데이터(이미지,비디오 등 데이터 저장) 어노테이션
    private String board_content;
@@ -50,10 +53,10 @@ public class Board {
 //   private String delete_yn;
    
    @Builder
-   public Board(int board_id, String board_writer, String board_title, String board_content,Long file_id) {
+   public Board(int board_id, String board_writer, String boardTitle, String board_content,Long file_id) {
 	   this.board_id = board_id;
 	   this.board_writer= board_writer;
-	   this.board_title= board_title;
+	   this.boardTitle= boardTitle;
 	   this.board_content= board_content;
 	   this.file_id= file_id;
    }
