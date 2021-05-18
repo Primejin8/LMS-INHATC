@@ -37,10 +37,8 @@ public class BoardController {
 	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
 		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
 		Page<Board> boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
-		
-		int startPage = Math.max(0, boardDtoList.getPageable().getPageNumber() - 4);
+		int startPage = Math.max(1, boardDtoList.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(boardDtoList.getTotalPages(), boardDtoList.getPageable().getPageNumber() + 4);
-		
 		model.addAttribute("startPage", startPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
