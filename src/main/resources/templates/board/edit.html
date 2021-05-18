@@ -5,61 +5,69 @@
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 	-->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
-	<title>인하공업전문대학</title>
+<title>인하공업전문대학</title>
 </head>
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<body>
-
 		<h3 class="m-3">글 수정</h3>
-		<body>
-			<div class="container-fluid">
-				<form th:action="@{'/post/edit/' + ${post.board_id}}" method="post">
-					<input type="hidden" name="_method" value="put" /> <input
-						type="hidden" name="id" th:value="${post.board_id}" />
-					<div class="form-group row">
-						<label for="boardTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-						<div class="col-sm-10">
-							<input type="text" name="boardTitle" class="form-control"
-								id="boardTitle" th:value="${post.boardTitle}">
+		<div class="container-fluid">
+			<form th:action="@{'/post/edit/' + ${post.board_id}}" method="post">
+				<input type="hidden" name="_method" value="put" /> 
+				<input type="hidden" name="id" th:value="${post.board_id}" />
+				<div class="form-group row m-3">
+					<label for="boardTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+					<div class="col-sm-10">
+						<input type="text" name="boardTitle" class="form-control"
+							id="boardTitle" th:value="${post.boardTitle}">
+					</div>
+				</div>
+				<div class="form-group row m-3">
+					<label for="board_writer" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
+					<div class="col-sm-10">
+						<input type="text" name="board_writer" class="form-control"
+							id="board_writer" th:value="${post.board_writer}">
+					</div>
+				</div>
+				<div class="form-group row m-3">
+					<label for="board_content" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+					<div class="col-sm-10">
+						<textarea name="board_content" class="form-control summernote"
+							id="board_content" th:text="${post.board_content}"></textarea>
+					</div>
+				</div>
+				<div class="form-group row m-3">
+					<label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부
+							파일</strong></label>
+					<div class="col-sm-10">
+						<div class="custom-file" id="inputFile">
+							<input name="file" type="file" class="custom-file-input"
+								multiple="multiple" id="customFile"> <label
+								class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="board_writer" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-						<div class="col-sm-10">
-							<input type="text" name="board_writer" class="form-control"
-								id="board_writer" th:value="${post.board_writer}">
-						</div>
+				</div>
+				<div class="row">
+					<div class="col-auto mr-auto"></div>
+					<div class="col-auto">
+						<input class="btn btn-primary" type="submit" role="button"
+							value="수정">
 					</div>
-					<div class="form-group row">
-						<label for="board_content" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-						<div class="col-sm-10">
-							<textarea name="board_content" class="form-control summernote"
-								id="board_content" th:text="${post.board_content}"></textarea>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-auto mr-auto"></div>
-						<div class="col-auto">
-							<input class="btn btn-primary" type="submit" role="button"
-								value="수정">
-						</div>
-					</div>
-				</form>
-			</div>
-			<script>
-        	$(document).ready(function(){
-            	$('.summernote').summernote({
-            		tabsize: 2,
-            		height: 300
-            	});
-            });
-      	 </script>
-		</body>
+				</div>
+			</form>
+		</div>
+		<script>
+			$(document).ready(function() {
+				$('.summernote').summernote({
+					tabsize : 2,
+					height : 300
+				});
+			});
+		</script>
 	</th:block>
 </th:block>
 </html>

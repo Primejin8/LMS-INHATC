@@ -1,17 +1,9 @@
 package kr.inhatc.spring.controller;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +40,7 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model) {
+	public String boardList(Long id, Model model) {
 		List<BoardDto> boardDtoList = boardService.getBoardList();
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
 		return "board/boardList";
@@ -124,6 +116,7 @@ public class BoardController {
 
 	    return "board/boardList";
 	}
+	
 	
 //	@GetMapping("/download/{file_id}")
 //	public ResponseEntity<Resource> fileDownload(@PathVariable("file_id") Long file_id) throws IOException {

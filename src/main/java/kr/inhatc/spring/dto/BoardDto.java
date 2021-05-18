@@ -1,19 +1,12 @@
 package kr.inhatc.spring.dto;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import kr.inhatc.spring.model.Board;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-//@Getter
-//@Setter
-//@ToString
 @Data
 @NoArgsConstructor
 public class BoardDto {

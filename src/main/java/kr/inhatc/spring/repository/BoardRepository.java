@@ -9,5 +9,5 @@ import kr.inhatc.spring.model.Board;
 public interface BoardRepository extends JpaRepository<Board, Integer>{
 
 	List<Board> findByBoardTitleContaining(String keyword);
-
+	
 }
