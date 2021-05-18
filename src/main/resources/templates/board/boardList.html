@@ -12,7 +12,7 @@
 		<div class="container-fluid">
 			<form action="/search" method="GET">
 				<div style=float:right>
-					<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+					<input name="boardTitle" type="text" placeholder="검색어를 입력해주세요">
 				</div>
 
 				<button style=float:right>검색하기</button>
@@ -48,12 +48,27 @@
 			</div>
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
-					<li class="page-item disabled"><a class="page-link" href="#"
-						tabindex="-1" aria-disabled="true">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					
+					<li class="page-item">
+						<a class="page-link" th:href="@{/boardList(page=0)}" tabindex="-1" aria-disabled="true">Previous</a>
+					</li>
+					<li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+						<a class="page-link" th:href="@{/boardList(page=${i-1})}" th:text="${i}"> </a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="">Next</a>
+					</li>
+					<!--  
+					<li class="page-item" th:classappend="${1 == boardList.pageable().pageNumber()+1} ? 'disabled'">
+						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+					</li>
+					<li class="page-item" th:classappend="${i == boardList.pageable().pageNumber()+1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+						<a class="page-link" href="#" th:text="${i}">1</a>
+					</li>
+					<li class="page-item" th:classappend="${boardList.totalPages == boardList.pageable().pageNumber()+1} ? 'disabled'">
+						<a class="page-link" href="#">Next</a>
+					</li>
+					-->
 				</ul>
 			</nav>
 		</div>
