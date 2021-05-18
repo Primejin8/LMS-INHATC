@@ -9,6 +9,9 @@ import java.util.List;
 import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.inhatc.spring.dto.BoardDto;
 import kr.inhatc.spring.dto.FileDto;
+import kr.inhatc.spring.model.Board;
 import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.service.BoardService;
 import kr.inhatc.spring.service.FileService;
@@ -40,6 +44,7 @@ public class BoardController {
 	
 	@Autowired
 	private FileService fileService;
+
 	
 //	없어도 되는 생성자?
 //	public BoardController(BoardService boardService) {
@@ -48,8 +53,15 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		List<BoardDto> boardDtoList = boardService.getBoardList();
+	public String boardList(Model model, @PageableDefault(size=2) Pageable pageable) {
+		List<BoardDto> boardDtoList = boardService.getBoardList(pageable);
+
+		Page<Board> boardList = boardRepository.findAll(pageable);
+		int startPage= Math.max(1,boardList.getPageable().getPageNumber() -4);
+		int endPage= Math.min(boardList.getTotalPages(),boardList.getPageable().getPageNumber() +4);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage",endPage);
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
 		return "board/boardList";
 	}

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +29,10 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public List<BoardDto> getBoardList() {
-		List<Board> boardList = boardRepository.findAll();
+	public List<BoardDto> getBoardList(Pageable pageable) {
+		Page<Board> boardList = boardRepository.findAll(pageable);
+		int startPage= Math.max(1,boardList.getPageable().getPageNumber() -4);
+		int endPage= Math.min(boardList.getTotalPages(),boardList.getPageable().getPageNumber() +4);
 		List<BoardDto> boardDtoList = new ArrayList<>();
 		
 		for(Board board : boardList) {
