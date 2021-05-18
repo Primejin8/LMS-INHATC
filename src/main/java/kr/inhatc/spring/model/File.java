@@ -17,10 +17,10 @@ public class File {
 	
 	@Id
 	@GeneratedValue
-	private long file_id;
+	private long fileId;
 	
 	@Column(nullable = false)
-	private String origFilename;
+	private String origFileName;
 
 	@Column(nullable = false)
 	private String fileName;
@@ -29,9 +29,9 @@ public class File {
 	private String filePath;
 
 	@Builder
-	public File(long file_id, String origFilename, String fileName, String filePath) {
-		this.file_id= file_id;
-		this.origFilename= origFilename;
+	public File(long fileId, String origFileName, String fileName, String filePath) {
+		this.fileId= fileId;
+		this.origFileName= origFileName;
 		this.fileName= fileName;
 		this.filePath= filePath;
 	}

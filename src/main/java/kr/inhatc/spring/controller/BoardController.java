@@ -1,8 +1,9 @@
 package kr.inhatc.spring.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.inhatc.spring.dto.BoardDto;
+import kr.inhatc.spring.model.Board;
 import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.service.BoardService;
 
@@ -31,8 +34,15 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		List<BoardDto> boardDtoList = boardService.getBoardList();
+	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
+		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
+		Page<Board> boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
+		
+		int startPage = Math.max(0, boardDtoList.getPageable().getPageNumber() - 4);
+		int endPage = Math.min(boardDtoList.getTotalPages(), boardDtoList.getPageable().getPageNumber() + 4);
+		
+		model.addAttribute("startPage", startPage);	//(key, value)형태로 view에 전달
+		model.addAttribute("endPage", endPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
 		return "board/boardList";
 	}

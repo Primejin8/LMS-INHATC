@@ -22,7 +22,7 @@ public class BoardService {
 	
 	@Transactional
 	public int savePost (BoardDto boardDto) {
-		return boardRepository.save(boardDto.toEntity()).getBoard_id();
+		return boardRepository.save(boardDto.toEntity()).getBoardId();
 	}
 	
 	@Transactional
@@ -32,10 +32,10 @@ public class BoardService {
 		
 		for(Board board : boardList) {
 			BoardDto boardDto = BoardDto.builder()
-					.board_id(board.getBoard_id())
-					.board_title(board.getBoard_title())
-					.board_content(board.getBoard_content())
-					.board_writer(board.getBoard_writer())
+					.boardId(board.getBoardId())
+					.boardTitle(board.getBoardTitle())
+					.boardContent(board.getBoardContent())
+					.boardWriter(board.getBoardWriter())
 					.createdDate(board.getCreatedDate())
 					.build();
 			boardDtoList.add(boardDto);
@@ -45,22 +45,22 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public BoardDto getPost(int board_id) {
-		Board board = boardRepository.findById(board_id).get();
+	public BoardDto getPost(int boardId) {
+		Board board = boardRepository.findById(boardId).get();
 		
 		BoardDto boardDto = BoardDto.builder()
-				.board_id(board.getBoard_id())
-				.board_writer(board.getBoard_writer())
-				.board_title(board.getBoard_title())
-				.file_id(board.getFile_id())
-				.board_content(board.getBoard_content())
+				.boardId(board.getBoardId())
+				.boardWriter(board.getBoardWriter())
+				.boardTitle(board.getBoardTitle())
+				.fileId(board.getFileId())
+				.boardContent(board.getBoardContent())
 				.createdDate(board.getCreatedDate())
 				.build();
 		return boardDto;
 	}
 	//삭제버튼 누르면 /post/{board_id}로 delete 요청하도록 deletePost()추가
 	@Transactional
-	public void deltePost(int board_id) {
-		boardRepository.deleteById(board_id);
+	public void deltePost(int boardId) {
+		boardRepository.deleteById(boardId);
 	}
 }
