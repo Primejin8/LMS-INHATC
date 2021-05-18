@@ -24,7 +24,7 @@
 					
 						<div th:if="${post.file_id != null}">
                 			<strong>첨부파일 : </strong>
-                			<a th:href="@{'/download/' + ${post.file_id}}" th:text="${fileName}"></a>
+                			<a th:href="@{/download/{file_id}(file_id=${post.file_id})}" th:text="${file.origFilename}"></a>
         			    </div>
 					
 					</div>
