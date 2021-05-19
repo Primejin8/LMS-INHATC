@@ -28,8 +28,8 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public List<BoardDto> getBoardList(Pageable pageable) {
-		Page<Board> boardList = boardRepository.findAll(pageable);
+	public List<BoardDto> getBoardList() {
+		List<Board> boardList = boardRepository.findAll();
 		List<BoardDto> boardDtoList = new ArrayList<>();
 		
 		for(Board board : boardList) {
@@ -65,29 +65,4 @@ public class BoardService {
 	public void deltePost(int board_id) {
 		boardRepository.deleteById(board_id);
 	}
-	
-	@Transactional
-	public List<BoardDto> searchPosts(String keyword) {
-	    List<Board> boardEntities = boardRepository.findByBoardTitleContaining(keyword);
-	    List<BoardDto> boardDtoList = new ArrayList<>();
-
-	    if (boardEntities.isEmpty()) return boardDtoList;
-
-	    for (Board boardEntity : boardEntities) {
-	        boardDtoList.add(this.convertEntityToDto(boardEntity));
-	    }
-
-	    return boardDtoList;
-	}
-	
-	private BoardDto convertEntityToDto(Board boardEntity) {
-	    return BoardDto.builder()
-	            .board_id(boardEntity.getBoard_id())
-	            .boardTitle(boardEntity.getBoardTitle())
-	            .board_content(boardEntity.getBoard_content())
-	            .board_writer(boardEntity.getBoard_writer())
-	            .createdDate(boardEntity.getCreatedDate())
-	            .build();
-	}
-	
 }
