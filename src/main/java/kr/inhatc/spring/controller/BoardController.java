@@ -1,16 +1,18 @@
 package kr.inhatc.spring.controller;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,24 +124,26 @@ public class BoardController {
 		boardService.savePost(boardDto);
 		return "redirect:/boardList";
 	}
-	//삭제
+	// 게시글 삭제
 	@DeleteMapping("/post/{board_id}")
 	public String delete(@PathVariable("board_id") int board_id) {
 		boardService.deltePost(board_id);
 		return "redirect:/boardList";
 	}
 	
+	// 파일 다운로드
 	@GetMapping("/download/{file_id}")
-	public ResponseEntity<Resource> fileDownload(@PathVariable("file_id") Long file_id) {
-	    FileDto fileDto = fileService.getFile(file_id);
-	    System.out.println("================>"+fileDto);
-	    Path path = Paths.get(fileDto.getFilePath());
+	public ResponseEntity<Resource> fileDownload(@PathVariable("file_id") Long file_id) throws Exception{
+//	    FileDto fileDto = fileService.getFile(file_id);
+//	    System.out.println("================>"+fileDto);
+//	    Path path = Paths.get(fileDto.getFilePath());
 	    
-//	    Resource resource = new InputStreamResource(Files.newInputStream(path));
-//	    return ResponseEntity.ok()
-//	            .contentType(MediaType.parseMediaType("application/octet-stream"))
-//	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDto.getOrigFilename() + "\"")
-//	            .body(resource);
-	    return null;
+	    FileDto fileDto = fileService.getFile(file_id);
+	    Path path = Paths.get(fileDto.getFilePath());
+	    Resource resource = new InputStreamResource(Files.newInputStream(path));
+	    return ResponseEntity.ok()
+	            .contentType(MediaType.parseMediaType("application/octet-stream"))
+	            .header(HttpHeaders.CONTENT_DISPOSITION, fileDto.getOrigFilename()) // 다운로드되는 파일의 이름 설정
+	            .body(resource); // 파일 넘기기
 	}
 }
