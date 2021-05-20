@@ -34,11 +34,31 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
+	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
 		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
-		Page<Board> boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
+		Page<Board> boardDtoList = null;
+		if(searchType.equals("all")) {
+			if(!searchText.equals("")) {
+				boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
+			}else {
+				boardDtoList = boardRepository.findAll(pageable);
+			}
+		} else if(searchType.equals("title")) {
+			boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
+		} else if(searchType.equals("contents")) {
+			boardDtoList = boardRepository.findAllByboardContentContaining(searchText, pageable);
+		} else if(searchType.equals("writer")){
+			boardDtoList = boardRepository.findAllByboardWriterContaining(searchText, pageable);
+		} else {
+			boardDtoList = boardRepository.findAll(pageable);
+		}
+		
 		int startPage = Math.max(1, boardDtoList.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(boardDtoList.getTotalPages(), boardDtoList.getPageable().getPageNumber() + 4);
+		
+		System.out.println("searchType === >" + searchType);
+		System.out.println("searchText === >" + searchText);
+		
 		model.addAttribute("startPage", startPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
