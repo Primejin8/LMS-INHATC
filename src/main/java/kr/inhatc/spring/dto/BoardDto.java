@@ -17,7 +17,7 @@ public class BoardDto {
 	private String boardTitle;
 	private String boardWriter;
 	private String boardContent;
-	private Long fileId;
+	private int hitCnt;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
 //	   private String delete_yn;
@@ -25,19 +25,18 @@ public class BoardDto {
 	// DTO에서 필요한 부분을 빌더 패턴을 통해 Entity로 만드는 역할
 	public Board toEntity() {
 		Board build = Board.builder() // Board에 @Builder
-				.boardId(boardId).boardTitle(boardTitle).boardContent(boardContent).boardWriter(boardWriter)
-				.fileId(fileId).build();
+				.boardId(boardId).boardTitle(boardTitle).boardContent(boardContent).boardWriter(boardWriter).hitCnt(hitCnt).build();
 		return build;
 	}
 
 	@Builder
-	public BoardDto(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId,
-			LocalDateTime createdDate, LocalDateTime modifiedDate) {
+	public BoardDto(int boardId, String boardWriter, String boardTitle, String boardContent, int hitCnt
+			, LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		this.boardId = boardId;
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
-		this.fileId = fileId;
+		this.hitCnt = hitCnt;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 	}

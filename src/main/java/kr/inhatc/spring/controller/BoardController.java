@@ -3,6 +3,7 @@ package kr.inhatc.spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +35,7 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
+	public String boardList(Model model, @PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
 		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
 		Page<Board> boardDtoList = null;
 		if(searchType.equals("all")) {
@@ -78,6 +79,8 @@ public class BoardController {
 	@GetMapping("/post/{boardId}")
 	public String detail(@PathVariable("boardId") int boardId, Model model) {
 		BoardDto boardDto = boardService.getPost(boardId);
+		boardService.savePost(boardDto);
+		boardService.updateView(boardDto.getBoardId());
 		model.addAttribute("post",boardDto);
 		return "board/detail";
 	}

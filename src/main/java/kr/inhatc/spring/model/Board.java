@@ -36,7 +36,7 @@ public class Board {
    @Lob	//썸머노트 쓰기 위해 대용량 데이터(이미지,비디오 등 데이터 저장) 어노테이션
    private String boardContent;
 
-   private Long fileId;
+   private int hitCnt;
    
    @CreatedDate
    @Column(updatable = false)
@@ -47,11 +47,11 @@ public class Board {
 //   private String delete_yn;
    
    @Builder
-   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId) {
+   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, int hitCnt) {
 	   this.boardId = boardId;
 	   this.boardWriter= boardWriter;
 	   this.boardTitle= boardTitle;
 	   this.boardContent= boardContent;
-	   this.fileId= fileId;
+	   this.hitCnt= hitCnt;
    }
 }

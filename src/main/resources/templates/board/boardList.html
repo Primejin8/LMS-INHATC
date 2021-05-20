@@ -30,6 +30,7 @@
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
 						<th scope="col">작성일</th>
+						<th scope="col">조회수</th>
 					</tr>
 				</thead>
 
@@ -43,6 +44,7 @@
 						<td><span
 							th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
 						</td>
+						<td><span th:text="${post.hitCnt}"></span></td>
 					</tr>
 				</tbody>
 			</table>
