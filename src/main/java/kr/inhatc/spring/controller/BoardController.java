@@ -29,6 +29,7 @@ import kr.inhatc.spring.dto.BoardDto;
 import kr.inhatc.spring.dto.FileDto;
 import kr.inhatc.spring.model.Board;
 import kr.inhatc.spring.repository.BoardRepository;
+import kr.inhatc.spring.repository.FileRepository;
 import kr.inhatc.spring.service.BoardService;
 import kr.inhatc.spring.service.FileService;
 import kr.inhatc.spring.util.MD5Generator;
@@ -91,8 +92,8 @@ public class BoardController {
             fileDto.setFileName(fileName);
             fileDto.setFilePath(filePath);
 
-            Long file_id = fileService.saveFile(fileDto);
-            boardDto.setFile_id(file_id);
+            Long fileId = fileService.saveFile(fileDto);
+            boardDto.setFileId(fileId);
             boardService.savePost(boardDto);
         } catch(Exception e) {
             e.printStackTrace();
@@ -101,11 +102,11 @@ public class BoardController {
 	}
 	//글 상세보기 창 매핑
 	//URL경로에 변수를 넘겨주는 역할 Pathvariable 
-	@GetMapping("/post/{board_id}")
-	public String detail(@PathVariable("board_id") int board_id, Model model) {
-		BoardDto boardDto = boardService.getPost(board_id);
+	@GetMapping("/post/{boardId}")
+	public String detail(@PathVariable("boardId") int boardId, Model model) {
+		BoardDto boardDto = boardService.getPost(boardId);
 		
-		FileDto fileDto = fileService.getFile(boardDto.getFile_id());
+		FileDto fileDto = fileService.getFile(boardDto.getFileId());
 		model.addAttribute("post",boardDto);
 		model.addAttribute("file", fileDto);
 		System.out.println(boardDto);
@@ -113,28 +114,28 @@ public class BoardController {
 		return "board/detail";
 	}
 	//수정하는 창 매핑
-	@GetMapping("/post/edit/{board_id}")
-	public String edit(@PathVariable("board_id") int board_id, Model model) {
-		BoardDto boardDto = boardService.getPost(board_id);
+	@GetMapping("/post/edit/{boardId}")
+	public String edit(@PathVariable("boardId") int boardId, Model model) {
+		BoardDto boardDto = boardService.getPost(boardId);
 		model.addAttribute("post", boardDto);
 		return "board/edit";
 	}
 	//수정버튼을 누르면 put형식으로 서버에게 /post/edit/{id} 요청이 가게됨
-	@PutMapping("/post/edit/{board_id}")
+	@PutMapping("/post/edit/{boardId}")
 	public String update(BoardDto boardDto) {
 		boardService.savePost(boardDto);
 		return "redirect:/boardList";
 	}
 	//삭제
-	@DeleteMapping("/post/{board_id}")
-	public String delete(@PathVariable("board_id") int board_id) {
-		boardService.deltePost(board_id);
+	@DeleteMapping("/post/{boardId}")
+	public String delete(@PathVariable("boardId") int boardId) {
+		boardService.deltePost(boardId);
 		return "redirect:/boardList";
 	}
 	
-	@GetMapping("/download/{file_id}")
-	public ResponseEntity<Resource> fileDownload(@PathVariable("file_id") Long file_id) {
-	    FileDto fileDto = fileService.getFile(file_id);
+	@GetMapping("/download/{fileId}")
+	public ResponseEntity<Resource> fileDownload(@PathVariable("fileId") Long fileId) {
+	    FileDto fileDto = fileService.getFile(fileId);
 	    System.out.println("================>"+fileDto);
 	    Path path = Paths.get(fileDto.getFilePath());
 //	    Resource resource = new InputStreamResource(Files.newInputStream(path));

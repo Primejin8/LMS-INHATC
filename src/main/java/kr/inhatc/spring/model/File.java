@@ -17,7 +17,7 @@ public class File {
 	
 	@Id
 	@GeneratedValue
-	private long file_id;
+	private long fileId;
 	
 	@Column(nullable = false)
 	private String origFilename;
@@ -29,8 +29,8 @@ public class File {
 	private String filePath;
 
 	@Builder
-	public File(long file_id, String origFilename, String fileName, String filePath) {
-		this.file_id= file_id;
+	public File(long fileId, String origFilename, String fileName, String filePath) {
+		this.fileId= fileId;
 		this.origFilename= origFilename;
 		this.fileName= fileName;
 		this.filePath= filePath;

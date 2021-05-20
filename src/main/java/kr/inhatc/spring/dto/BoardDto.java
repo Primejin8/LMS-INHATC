@@ -17,11 +17,11 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 public class BoardDto {
-	 private int board_id;
+	 private int boardId;
 	   private String boardTitle;
-	   private String board_writer;
-	   private String board_content;
-	   private Long file_id;
+	   private String boardWriter;
+	   private String boardContent;
+	   private Long fileId;
 	   private LocalDateTime createdDate;
 	   private LocalDateTime modifiedDate;
 //	   private String delete_yn;
@@ -29,21 +29,21 @@ public class BoardDto {
 	   //DTO에서 필요한 부분을 빌더 패턴을 통해 Entity로 만드는 역할
 	   public Board toEntity() {
 		   Board build = Board.builder()	//Board에 @Builder
-				   .board_id(board_id)
+				   .boardId(boardId)
 				   .boardTitle(boardTitle)
-				   .board_content(board_content)
-				   .board_writer(board_writer)
-				   .file_id(file_id)
+				   .boardContent(boardContent)
+				   .boardWriter(boardWriter)
+				   .fileId(fileId)
 				   .build();
 		   return build;
 	   }
 	   @Builder
-	   public BoardDto(int board_id, String board_writer, String boardTitle, String board_content, Long file_id, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-		   this.board_id= board_id;
-		   this.board_writer= board_writer;
+	   public BoardDto(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+		   this.boardId= boardId;
+		   this.boardWriter= boardWriter;
 		   this.boardTitle= boardTitle;
-		   this.board_content= board_content;
-		   this.file_id= file_id;
+		   this.boardContent= boardContent;
+		   this.fileId= fileId;
 		   this.createdDate= createdDate;
 		   this.modifiedDate= modifiedDate;
 	   }
