@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.inhatc.spring.dto.BoardDto;
 import kr.inhatc.spring.model.Board;
@@ -20,6 +21,7 @@ import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.service.BoardService;
 
 @Controller
+@SessionAttributes("sessionId")
 public class BoardController {
 
 	@Autowired

@@ -1,7 +1,12 @@
 package kr.inhatc.spring.controller;
 
-import org.hibernate.hql.internal.ast.util.JoinProcessor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +34,15 @@ public class IndexController {
 	}
 	
 	@GetMapping("/index")
-	public String index() {
+	public String index(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails user = (UserDetails) authentication.getPrincipal();
+		String name = user.getUsername();
+		String pw = user.getPassword();
+		System.out.println("name :: " + name);
+		System.out.println("pw :: " + pw);
+		HttpSession session = request.getSession();
+	    session.setAttribute("sessionId", name);
 		return "index";
 	}
 	
