@@ -17,8 +17,8 @@
 		<h3 class="m-3">글 수정</h3>
 		<div class="container-fluid">
 			<form th:action="@{'/post/edit/' + ${post.boardId}}" method="post">
-				<input type="hidden" name="_method" value="put" /> 
-				<input type="hidden" name="id" th:value="${post.boardId}" />
+				<input type="hidden" name="_method" value="put" /> <input
+					type="hidden" name="id" th:value="${post.boardId}" />
 				<div class="form-group row m-3">
 					<label for="boardTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
 					<div class="col-sm-10">
@@ -38,23 +38,23 @@
 					<div class="col-sm-10">
 						<textarea name="boardContent" class="form-control summernote"
 							id="boardContent" th:text="${post.boardContent}"></textarea>
-					</div>
-				</div>
-				<div class="form-group row m-3">
-					<label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부
-							파일</strong></label>
-					<div class="col-sm-10">
-						<div class="custom-file" id="inputFile">
-							<input name="file" type="file" class="custom-file-input"
-								multiple="multiple" id="customFile">
+						<div class="form-group row m-3">
+							<label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부
+									파일</strong></label>
+							<div class="col-sm-10">
+								<div class="custom-file" id="inputFile">
+									<input name="file" type="file" class="custom-file-input"
+										multiple="multiple" id="customFile">
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-auto mr-auto"></div>
-					<div class="col-auto">
-						<input class="btn btn-primary" type="submit" role="button"
-							value="수정">
+						<div class="row">
+							<div class="col-auto mr-auto"></div>
+							<div class="col-auto">
+								<input class="btn btn-primary" type="submit" role="button"
+									value="수정">
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>

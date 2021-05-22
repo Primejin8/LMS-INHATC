@@ -134,11 +134,8 @@ public class BoardController {
 	// 파일 다운로드
 	@GetMapping("/download/{fileId}")
 	public ResponseEntity<Resource> fileDownload(@PathVariable("fileId") Long fileId) throws Exception{
-//	    FileDto fileDto = fileService.getFile(fileId);
-//	    System.out.println("================>"+fileDto);
-//	    Path path = Paths.get(fileDto.getFilePath());
-	    
 	    FileDto fileDto = fileService.getFile(fileId);
+	    System.out.println("================>"+fileDto);
 	    Path path = Paths.get(fileDto.getFilePath());
 	    Resource resource = new InputStreamResource(Files.newInputStream(path));
 	    return ResponseEntity.ok()
