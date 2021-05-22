@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- boardList.js 파일 적용 -->
+<script type="text/javascript" src="/js/boardList.js"></script> 
 <!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
 <title>인하공업전문대학</title>
 </head>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		const url = new URL(location.href);
+		// URLSearchParams 객체
+		const urlParams = url.searchParams;
+		if(urlParams != ""){
+			// URLSearchParams.get()
+			document.getElementById('searchType').value = urlParams.get('searchType'); 
+		}
+	});
+</script>
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
 		<h3 class="m-3">토론방</h3>
 		<div class="container-fluid">
-			<form class="form-inline d-flex justify-content-end">
-				<div class="form-group mx-sm-3 mb-2">
-					<label for="searchText" class="sr-only">검색</label> <input
-						type="text" class="form-control" id="searchText" name="searchText"
-						th:value="${param.searchText}">
-				</div>
-				<button type="submit" class="btn btn-primary mb-2">검색</button>
-			</form>
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
-						<th scope="col">#</th>
+						<th scope="col">번호</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
 						<th scope="col">작성일</th>
+						<th scope="col">조회수</th>
 					</tr>
 				</thead>
 
@@ -34,13 +40,42 @@
 						<td><a th:href="@{'/post/' + ${post.boardId}}"> <span
 								th:text="${post.boardTitle}"></span>
 						</a></td>
-						<td><span th:text="${post.boardWriter}"></span></td>
+						<td><span th:text="${session.name}"></span></td>
 						<td><span
 							th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
 						</td>
+						<td><span th:text="${post.hitCnt}"></span></td>
 					</tr>
 				</tbody>
 			</table>
+
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item" th:classappend="${1 == postList.pageable.pageNumber + 1 } ? 'disabled'" >
+			      <a class="page-link" href="#" th:href="@{/boardList(page=${postList.pageable.pageNumber - 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}" tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <li class="page-item" th:classappend="${i == postList.pageable.pageNumber + 1 } ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+			    	<a class="page-link" href="#" th:href="@{/boardList(page=${i - 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}" th:text="${i}" >1</a>
+			    </li>
+			    <li class="page-item" th:classappend="${postList.totalPages == postList.pageable.pageNumber + 1 } ? 'disabled'" >
+			      <a class="page-link" href="#" th:href="@{/boardList(page=${postList.pageable.pageNumber + 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}">Next</a>
+			    </li>
+			    &nbsp;
+			    <select id="searchType" class="form-select" style="width :90px; height: 40px;" aria-label="Default select example">
+				  <option value="all">전체</option>
+				  <option value="title">제목</option>
+				  <option value="contents">내용</option>
+				  <option value="writer">작성자</option>
+				</select>
+			    <form class="form-inline d-flex justify-content-end">
+					<div class="form-group mx-sm-3 mb-2">
+						<label for="searchText" class="sr-only">검색</label>
+						<input type="text" class="form-control" id="searchText" name="searchText" th:value="${param.searchText}" >
+					</div>
+					<button type="button" class="btn btn-primary mb-2" onclick="search();" >검색</button>
+				</form>
+			  </ul>
+			</nav>
 
 			<div class="row">
 				<div class="col">
@@ -48,30 +83,6 @@
 						role="button">글쓰기</a>
 				</div>
 			</div>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-
-					<li class="page-item"
-						th:classappend="${1 == postList.pageable.pageNumber + 1 } ? 'disabled'">
-						<a class="page-link" href="#"
-						th:href="@{/boardList(page=${postList.pageable.pageNumber - 1}, searchText = ${param.searchText} )}"
-						tabindex="-1" aria-disabled="true">Previous</a>
-					</li>
-					<li class="page-item"
-						th:classappend="${i == postList.pageable.pageNumber + 1 } ? 'disabled'"
-						th:each="i : ${#numbers.sequence(startPage, endPage)}">
-						<a class="page-link" href="#"
-						th:href="@{/boardList(page=${i - 1}, searchText = ${param.searchText} )}"
-						th:text="${i}">1</a>
-					</li>
-					<li class="page-item"
-						th:classappend="${postList.totalPages == postList.pageable.pageNumber + 1 } ? 'disabled'">
-						<a class="page-link" href="#"
-						th:href="@{/boardList(page=${postList.pageable.pageNumber + 1}, searchText = ${param.searchText} )}">Next</a>
-					</li>
-
-				</ul>
-			</nav>
 		</div>
 	</th:block>
 </th:block>

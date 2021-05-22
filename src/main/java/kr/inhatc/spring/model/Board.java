@@ -40,6 +40,8 @@ public class Board {
    private String boardContent;
 
    private Long fileId;
+
+   private int hitCnt;
    
    @CreatedDate
    @Column(updatable = false)
@@ -49,11 +51,12 @@ public class Board {
    private LocalDateTime modifiedDate;
    
    @Builder
-   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId) {
+   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId, int hitCnt) {
 	   this.boardId = boardId;
 	   this.boardWriter= boardWriter;
 	   this.boardTitle= boardTitle;
 	   this.boardContent= boardContent;
 	   this.fileId= fileId;
+	   this.hitCnt= hitCnt;
    }
 }

@@ -5,15 +5,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.inhatc.spring.dto.BoardDto;
 import kr.inhatc.spring.dto.FileDto;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import kr.inhatc.spring.model.Board;
 import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.service.BoardService;
@@ -33,8 +38,11 @@ import kr.inhatc.spring.service.FileService;
 import kr.inhatc.spring.util.MD5Generator;
 
 @Controller
+@SessionAttributes("sessionId")
 public class BoardController {
 
+	private Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
 	@Autowired
 	private BoardRepository boardRepository;
 	
@@ -50,13 +58,37 @@ public class BoardController {
 //		this.boardService = boardService;
 //	}
 	
+	public BoardController() {
+		logger.info("############### Create BoardController ###############");
+	}
+	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model, @PageableDefault(size = 10) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
+	public String boardList(Model model, @PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
 		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
-		Page<Board> boardDtoList = boardRepository.findAllByboardTitleContaining(searchText, pageable);
+		Page<Board> boardDtoList = null;
+		if(searchType.equals("all")) {
+			if(!searchText.equals("")) {
+				boardDtoList = boardRepository.findAllByboardContentContaining(searchText, pageable);
+			}else {
+				boardDtoList = boardRepository.findAll(pageable);
+			}
+		} else if(searchType.equals("title")) {
+			boardDtoList = boardRepository.findAllByboardContentContaining(searchText, pageable);
+		} else if(searchType.equals("contents")) {
+			boardDtoList = boardRepository.findAllByboardContentContaining(searchText, pageable);
+		} else if(searchType.equals("writer")){
+			boardDtoList = boardRepository.findAllByboardWriterContaining(searchText, pageable);
+		} else {
+			boardDtoList = boardRepository.findAll(pageable);
+		}
+		
 		int startPage = Math.max(1, boardDtoList.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(boardDtoList.getTotalPages(), boardDtoList.getPageable().getPageNumber() + 4);
+		
+		System.out.println("searchType === >" + searchType);
+		System.out.println("searchText === >" + searchText);
+		
 		model.addAttribute("startPage", startPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage);	//(key, value)형태로 view에 전달
 		model.addAttribute("postList", boardDtoList);	//(key, value)형태로 view에 전달
@@ -105,6 +137,8 @@ public class BoardController {
 		BoardDto boardDto = boardService.getPost(boardId);
 		
 		FileDto fileDto = fileService.getFile(boardDto.getFileId());
+		boardService.savePost(boardDto);
+		boardService.updateView(boardDto.getBoardId());
 		model.addAttribute("post",boardDto);
 		model.addAttribute("file", fileDto);
 		System.out.println(boardDto);
