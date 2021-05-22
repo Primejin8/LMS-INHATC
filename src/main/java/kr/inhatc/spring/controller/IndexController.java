@@ -3,6 +3,8 @@ package kr.inhatc.spring.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +21,17 @@ import kr.inhatc.spring.repository.UserRepository;
 @Controller	//view를 리턴
 public class IndexController {
 	
+	private Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
 	@Autowired //필요한곳에서 Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public IndexController() {
+		logger.info("############### Create IndexController ###############");
+	}
 	
 	//localhost:8001
 	@GetMapping({"","/"})
@@ -35,14 +43,23 @@ public class IndexController {
 	
 	@GetMapping("/index")
 	public String index(HttpServletRequest request) {
+		// 현재 인증 값 가져오기
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails user = (UserDetails) authentication.getPrincipal();
-		String name = user.getUsername();
-		String pw = user.getPassword();
-		System.out.println("name :: " + name);
-		System.out.println("pw :: " + pw);
+		// userId 값 가져오기
+		String username = user.getUsername();
+		System.out.println("username :: " + username);
+		// Session 생성
 		HttpSession session = request.getSession();
-	    session.setAttribute("sessionId", name);
+		// 사용자 정보 가져오기
+		User userEntity = userRepository.findByUsername(username);
+	    logger.info("userEntity :: " + userEntity);
+		session.setAttribute("id", userEntity.getId());
+		session.setAttribute("username", userEntity.getUsername());
+		session.setAttribute("name", userEntity.getName());
+		session.setAttribute("department", userEntity.getDepartment());
+		session.setAttribute("email", userEntity.getEmail());
+		session.setAttribute("role", userEntity.getRole());
 		return "index";
 	}
 	
@@ -56,7 +73,11 @@ public class IndexController {
 	}
 	//원래는 8001/login하면 시큐리티가 낚아챘는데 SecurityConfig 파일 생성후 작동안하고 login페이지로 감
 	@GetMapping("/mainpage")
-	public String mainpage() {
+	public String mainpage(HttpServletRequest request) {
+		// Session 생성
+		HttpSession session = request.getSession();
+		// 세션 무효화
+		session.invalidate();
 		return "mainpage";
 	}
 	

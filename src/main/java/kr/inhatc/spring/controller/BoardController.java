@@ -1,5 +1,7 @@
 package kr.inhatc.spring.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,8 @@ import kr.inhatc.spring.service.BoardService;
 @SessionAttributes("sessionId")
 public class BoardController {
 
+	private Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
 	@Autowired
 	private BoardRepository boardRepository;
 	
@@ -34,6 +38,10 @@ public class BoardController {
 //	public BoardController(BoardService boardService) {
 //		this.boardService = boardService;
 //	}
+	
+	public BoardController() {
+		logger.info("############### Create BoardController ###############");
+	}
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
