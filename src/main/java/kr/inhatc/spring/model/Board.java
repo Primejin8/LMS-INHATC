@@ -29,17 +29,17 @@ import lombok.NoArgsConstructor;
 public class Board {
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
-   private int board_id;
+   private int boardId;
    
-   private String board_writer;
+   private String boardWriter;
 
    @NotNull
    private String boardTitle;
 
    @Lob	//썸머노트 쓰기 위해 대용량 데이터(이미지,비디오 등 데이터 저장) 어노테이션
-   private String board_content;
+   private String boardContent;
 
-   private Long file_id;
+   private Long fileId;
    
    @CreatedDate
    @Column(updatable = false)
@@ -48,13 +48,12 @@ public class Board {
    @LastModifiedDate
    private LocalDateTime modifiedDate;
    
-   
    @Builder
-   public Board(int board_id, String board_writer, String boardTitle, String board_content,Long file_id) {
-	   this.board_id = board_id;
-	   this.board_writer= board_writer;
+   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId) {
+	   this.boardId = boardId;
+	   this.boardWriter= boardWriter;
 	   this.boardTitle= boardTitle;
-	   this.board_content= board_content;
-	   this.file_id= file_id;
+	   this.boardContent= boardContent;
+	   this.fileId= fileId;
    }
 }

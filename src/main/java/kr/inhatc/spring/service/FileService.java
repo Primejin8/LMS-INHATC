@@ -15,15 +15,15 @@ public class FileService {
 
 	@Transactional
 	public Long saveFile(FileDto fileDto) {
-		return fileRepository.save(fileDto.toEntity()).getFile_id();
+		return fileRepository.save(fileDto.toEntity()).getFileId();
 	}
 	
 	@Transactional
-	public FileDto getFile(long file_id) {
-		File file = fileRepository.findById(file_id).get();
+	public FileDto getFile(long fileId) {
+		File file = fileRepository.findById(fileId).get();
 		
 		FileDto fileDto = FileDto.builder()
-				.file_id(file_id)
+				.fileId(fileId)
 				.origFilename(file.getOrigFilename())
 				.fileName(file.getFileName())
 				.filePath(file.getFilePath())

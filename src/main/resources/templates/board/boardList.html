@@ -30,11 +30,11 @@
 
 				<tbody>
 					<tr class="text-center" th:each="post : ${postList}">
-						<th scope="row"><span th:text="${post.board_id}"></span></th>
-						<td><a th:href="@{'/post/' + ${post.board_id}}"> <span
+						<th scope="row"><span th:text="${post.boardId}"></span></th>
+						<td><a th:href="@{'/post/' + ${post.boardId}}"> <span
 								th:text="${post.boardTitle}"></span>
 						</a></td>
-						<td><span th:text="${post.board_writer}"></span></td>
+						<td><span th:text="${post.boardWriter}"></span></td>
 						<td><span
 							th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
 						</td>
