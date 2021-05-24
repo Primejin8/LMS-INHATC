@@ -22,9 +22,11 @@
 						<textarea name="boardContent" class="form-control summernote"
 							id="boardContent" th:text="${post.boardContent}"></textarea>
 					
+						
 						<div th:if="${post.fileId != null}">
                 			<strong>첨부파일 : </strong>
-                			<a th:href="@{/download/{fileId}(fileId=${post.fileId})}" th:text="${file.origFilename}"></a>
+                			<a th:each= "i: 3"
+                			th:href="@{/download/{fileId}(fileId=${post.fileId})}" th:text="${file.origFilename}"></a>
         			    </div>
 					
 					</div>
