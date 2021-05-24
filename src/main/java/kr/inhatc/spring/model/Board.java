@@ -1,6 +1,5 @@
 package kr.inhatc.spring.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,7 +19,6 @@ import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 //@Getter
@@ -43,6 +40,8 @@ public class Board {
    private String boardContent;
 
    private Long fileId;
+
+   private int hitCnt;
    
    @CreatedDate
    @Column(updatable = false)
@@ -50,14 +49,14 @@ public class Board {
 
    @LastModifiedDate
    private LocalDateTime modifiedDate;
-//   private String delete_yn;
    
    @Builder
-   public Board(int boardId, String boardWriter, String boardTitle, String boardContent,Long fileId) {
+   public Board(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId, int hitCnt) {
 	   this.boardId = boardId;
 	   this.boardWriter= boardWriter;
 	   this.boardTitle= boardTitle;
 	   this.boardContent= boardContent;
 	   this.fileId= fileId;
+	   this.hitCnt= hitCnt;
    }
 }

@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 public class FileDto {
 
 	private long fileId;
+	
 	private String origFilename;
+	
 	private String fileName;
+	
 	private String filePath;
 	
 	public File toEntity() {

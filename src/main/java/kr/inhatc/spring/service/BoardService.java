@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +35,7 @@ public class BoardService {
 					.boardId(board.getBoardId())
 					.boardTitle(board.getBoardTitle())
 					.boardContent(board.getBoardContent())
+					.hitCnt(board.getHitCnt())
 					.boardWriter(board.getBoardWriter())
 					.createdDate(board.getCreatedDate())
 					.build();
@@ -57,6 +55,7 @@ public class BoardService {
 				.boardTitle(board.getBoardTitle())
 				.fileId(board.getFileId())
 				.boardContent(board.getBoardContent())
+				.hitCnt(board.getHitCnt())
 				.createdDate(board.getCreatedDate())
 				.build();
 		return boardDto;
@@ -67,4 +66,9 @@ public class BoardService {
 		boardRepository.deleteById(boardId);
 	}
 	
+	// 조회수 업데이트
+	@Transactional
+    public int updateView(int boardId) {
+        return boardRepository.updateView(boardId);
+    }
 }
