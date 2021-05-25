@@ -1,5 +1,7 @@
 package kr.inhatc.spring.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +16,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.inhatc.spring.dto.BoardDto;
+import kr.inhatc.spring.dto.LikeInfoDto;
 import kr.inhatc.spring.model.Board;
 import kr.inhatc.spring.repository.BoardRepository;
+import kr.inhatc.spring.repository.LikeInfoRepository;
 import kr.inhatc.spring.service.BoardService;
+import kr.inhatc.spring.service.LikeInfoService;
 
 @Controller
-@SessionAttributes("sessionId")
 public class BoardController {
 
 	private Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -32,7 +39,13 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@Autowired
+	private LikeInfoRepository likeInfoRepository;
+	
+	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private LikeInfoService likeInfoService;
 	
 //	없어도 되는 생성자?
 //	public BoardController(BoardService boardService) {
@@ -81,18 +94,48 @@ public class BoardController {
 	}
 	@PostMapping("/post")
 	public String write(BoardDto boardDto) {
+		logger.info("boardDTO :: " + boardDto);
 		boardService.savePost(boardDto);
 		return "redirect:/boardList";
 	}
 	//글 상세보기 창 매핑
 	//URL경로에 변수를 넘겨주는 역할 Pathvariable 
 	@GetMapping("/post/{boardId}")
+	//@ResponseBody
 	public String detail(@PathVariable("boardId") int boardId, Model model) {
 		BoardDto boardDto = boardService.getPost(boardId);
-		boardService.savePost(boardDto);
+		logger.info("post :: " + boardDto);
+		//boardService.savePost(boardDto);
 		boardService.updateView(boardDto.getBoardId());
-		model.addAttribute("post",boardDto);
+		model.addAttribute("post", boardDto);
+		//ModelAndView view = new ModelAndView();
+		//view.setViewName("detail");
 		return "board/detail";
+		//return view;
+	}
+	//좋아요 수 증가
+	@RequestMapping(value="/post/requestObject", produces="application/json;charset=UTF-8", method=RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> test(@RequestBody HashMap<String, Object> request) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("request :: " + request);
+		// boardId를 받아서 좋아요 수 증가
+		int boardId = Integer.parseInt(request.get("boardId").toString());
+		boolean bool = boardService.updateGoodCnt(boardId) == 1;
+		// boardId 게시물 정보 가져오기
+		BoardDto boardDto = boardService.getPost(boardId);
+		// 좋아요 수 가져오기
+		result.put("goodCnt", boardDto.getGoodCnt());
+		result.put("resultType", bool);
+		
+		// 좋아요
+		LikeInfoDto likeInfoDto = new LikeInfoDto();
+		likeInfoDto.setBoardId(boardDto.getBoardId());
+		likeInfoDto.setEmpSeq(Integer.parseInt(boardDto.getCreateSeq()));
+		likeInfoDto.setCreateSeq(boardDto.getCreateSeq());
+		likeInfoDto.setModifySeq(boardDto.getCreateSeq());
+		likeInfoService.saveLike(likeInfoDto);
+		
+		return result;
 	}
 	//수정하는 창 매핑
 	@GetMapping("/post/edit/{boardId}")
@@ -104,6 +147,11 @@ public class BoardController {
 	//수정버튼을 누르면 put형식으로 서버에게 /post/edit/{id} 요청이 가게됨
 	@PutMapping("/post/edit/{boardId}")
 	public String update(BoardDto boardDto) {
+		// 데이터 값을 가지고 와서 null 인 부분에 값을 넣고 데이터
+		BoardDto boardDTO = boardService.getPost(boardDto.getBoardId());
+		boardDto.setUseYn(boardDTO.getUseYn());
+		boardDto.setCreateSeq(boardDTO.getCreateSeq());
+		boardDto.setModifySeq(boardDTO.getModifySeq());
 		boardService.savePost(boardDto);
 		return "redirect:/boardList";
 	}

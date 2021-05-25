@@ -13,6 +13,7 @@ import kr.inhatc.spring.repository.BoardRepository;
 
 @Service
 public class BoardService {
+	
 	@Autowired
 	private BoardRepository boardRepository;
 	
@@ -35,9 +36,14 @@ public class BoardService {
 					.boardId(board.getBoardId())
 					.boardTitle(board.getBoardTitle())
 					.boardContent(board.getBoardContent())
+					.goodCnt(board.getGoodCnt())
 					.hitCnt(board.getHitCnt())
 					.boardWriter(board.getBoardWriter())
+					.useYn(board.getUseYn())
+					.createSeq(board.getCreateSeq())
 					.createdDate(board.getCreatedDate())
+					.modifySeq(board.getModifySeq())
+					.modifiedDate(board.getModifiedDate())
 					.build();
 			boardDtoList.add(boardDto);
 		}
@@ -54,8 +60,13 @@ public class BoardService {
 				.boardWriter(board.getBoardWriter())
 				.boardTitle(board.getBoardTitle())
 				.boardContent(board.getBoardContent())
+				.goodCnt(board.getGoodCnt())
 				.hitCnt(board.getHitCnt())
+				.useYn(board.getUseYn())
+				.createSeq(board.getCreateSeq())
 				.createdDate(board.getCreatedDate())
+				.modifySeq(board.getModifySeq())
+				.modifiedDate(board.getModifiedDate())
 				.build();
 		return boardDto;
 	}
@@ -70,6 +81,12 @@ public class BoardService {
 	@Transactional
     public int updateView(int boardId) {
         return boardRepository.updateView(boardId);
+    }
+	
+	// 게시물 업데이트
+	@Transactional
+    public int updateGoodCnt(int boardId) {
+        return boardRepository.updateGoodCnt(boardId);
     }
 	
 }
