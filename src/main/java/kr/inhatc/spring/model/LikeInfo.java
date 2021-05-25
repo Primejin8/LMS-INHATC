@@ -40,7 +40,7 @@ public class LikeInfo {
 
 	// 종아요 버튼 여부
 	@Column(updatable = false, columnDefinition = "char(1)")
-	@ColumnDefault("'N'")
+	@ColumnDefault("'Y'")
 	private String chkYn;
 
 	// 사용여부

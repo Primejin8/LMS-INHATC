@@ -83,10 +83,16 @@ public class BoardService {
         return boardRepository.updateView(boardId);
     }
 	
-	// 게시물 업데이트
+	// 게시물 좋아요 증가
 	@Transactional
-    public int updateGoodCnt(int boardId) {
-        return boardRepository.updateGoodCnt(boardId);
+    public int updatePlusGoodCnt(int boardId) {
+        return boardRepository.updatePlusGoodCnt(boardId);
     }
+	
+	// 게시물 좋아요 감소
+	@Transactional
+	public int updateMinusGoodCnt(int boardId) {
+		return boardRepository.updateMinusGoodCnt(boardId);
+	}
 	
 }

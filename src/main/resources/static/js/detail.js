@@ -1,10 +1,12 @@
 // 검색
-function btnGoodCnt(boardId) {
+function btnGoodCnt(boardId, empSeq) {
 	console.log("boardId", boardId);
+	console.log("empSeq", empSeq);
 	$.ajax({
 		url: "requestObject",
 		data: JSON.stringify({
-			"boardId":boardId
+			"boardId":boardId,
+			"empSeq":empSeq
 		}),
 		type: "POST",
 		dataType: "json",
