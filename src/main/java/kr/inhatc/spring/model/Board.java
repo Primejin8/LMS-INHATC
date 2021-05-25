@@ -40,7 +40,7 @@ public class Board {
    private String boardContent;
 
    private Long fileId;
-
+   
    private int hitCnt;
    
    @CreatedDate

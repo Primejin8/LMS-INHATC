@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.inhatc.spring.dto.BoardDto;
+//import kr.inhatc.spring.dto.CommentDto;
 import kr.inhatc.spring.dto.FileDto;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.inhatc.spring.model.Board;
+//import kr.inhatc.spring.model.Comment;
 import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.service.BoardService;
 import kr.inhatc.spring.service.FileService;
@@ -64,8 +66,8 @@ public class BoardController {
 	
 	//Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/boardList")
-	public String boardList(Model model, @PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
-		//Page<Board> boardDtoList = boardRepository.findAll(pageable);
+	public String boardList(Model model, @PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable, 
+			@RequestParam(required = false, defaultValue = "all") String searchType, @RequestParam(required = false, defaultValue = "") String searchText) {
 		Page<Board> boardDtoList = null;
 		if(searchType.equals("all")) {
 			if(!searchText.equals("")) {
@@ -135,8 +137,8 @@ public class BoardController {
 	@GetMapping("/post/{boardId}")
 	public String detail(@PathVariable("boardId") int boardId, Model model) {
 		BoardDto boardDto = boardService.getPost(boardId);
-		
 		FileDto fileDto = fileService.getFile(boardDto.getFileId());
+		
 		boardService.savePost(boardDto);
 		boardService.updateView(boardDto.getBoardId());
 		model.addAttribute("post",boardDto);
@@ -177,4 +179,5 @@ public class BoardController {
 	            .header(HttpHeaders.CONTENT_DISPOSITION, fileDto.getOrigFilename()) // 다운로드되는 파일의 이름 설정
 	            .body(resource); // 파일 넘기기
 	}
+	
 }

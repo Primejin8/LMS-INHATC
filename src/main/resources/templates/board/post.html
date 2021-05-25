@@ -21,7 +21,7 @@
 				<div class="form-group row">
 					<label for="inputWriter" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
 					<div class="col-sm-10">
-						<input type="text" id="boardWriter" name="boardWriter" class="form-control" th:value="${session.name}" disabled="disabled">
+						<input type="text" id="boardWriter" name="boardWriter" class="form-control" th:value="${session.name}" readonly>
 					</div>
 				</div>
 
@@ -45,7 +45,7 @@
 				</div>
 				<div class="row">
 					<div class="col-auto mr-auto"></div>
-					<div class="col-auto">
+					<div class="col-auto float-right">
 						<input class="btn btn-primary" type="submit" role="button" value="글쓰기">
 					</div>
 				</div>

@@ -14,7 +14,7 @@
 				<div class="card-header">
 					<div class="card-title d-flex justify-content-between">
 						<h5 class="m-2" th:text="@{${post.boardTitle}}"></h5>
-						<h5 class="m-2" th:text="@{${session.name}}"></h5>
+						<h5 class="m-2" th:text="@{${post.boardWriter}}"></h5>
 					</div>
 					<p class="card-text">
 						<small class="text-muted m-2" th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></small>
@@ -34,47 +34,47 @@
 		</div>
 
 		<!-- 글 수정 / 삭제 -->
-		<div class="row mt-3">
-			<div class="col-auto mr-auto"></div>
-			<div class="col-auto">
-				<a class="btn btn-info" th:href="@{'/post/edit/' + ${post.boardId}}"
-					role="button">수정</a>
-			</div>
-			<div class="col-auto">
-				<form id="delete-form" th:action="@{'/post/' + ${post.boardId}}"
-					method="post">
-					<input type="hidden" name="_method" value="delete" />
-					<button id="delete-btn" type="submit" class="btn btn-danger">삭제</button>
-				</form>
-			</div>
+		<div class="row mt-3 justify-content-end">
+				<div class="col-auto mr-auto"></div>
+				<div class="col-auto">
+					<a class="btn btn-info" th:href="@{'/post/edit/' + ${post.boardId}}"
+						role="button">수정</a>
+				</div>
+				<div class="col-auto">
+					<form id="delete-form" th:action="@{'/post/' + ${post.boardId}}"
+						method="post">
+						<input type="hidden" name="_method" value="delete" />
+						<button id="delete-btn" type="submit" class="btn btn-danger">삭제</button>
+					</form>
+				</div>
 		</div>
 
 		<!-- 댓글 -->
-		<div class="card m-3">
-			<div class="card-header">댓글 작성</div>
-			<div class="card-body">
-				<textarea class="form-control" rows="2"></textarea>
+		<!-- <form>
+			<input type="hidden" id="boardId" value="${post.boardId}"/>
+			<div class="card m-3">
+				<div class="card-header">댓글 작성</div>
+				<div class="card-body">
+					<textarea class="form-control" rows="2" id="CommentId" name="CommentContent"></textarea>
+				</div>
+				<div class="card-footer">
+					<button class="btn-primary" id="CommentId">등록</button>
+				</div>
 			</div>
-			<div class="card-footer">
-				<button class="btn-primary">등록</button>
-			</div>
-		</div>
+		</form>
 
 		<div class="card m-3">
 			<div class="card-header">댓글 리스트</div>
 			<ul id="comment--box" class="list-group">
-				<c:forEach var="comment" items="${board.comment">
-					<li id="comment"
-						class="list-group-item d-flex justify-content-between">
-						<div>${comment.content}</div>
-						<div class="d-flex">
-							<div>작성자 : ${comment.userId.username} &nbsp;</div>
-							<button>삭제</button>
-						</div>
-					</li>
-				</c:forEach>
+				<li id="comment" class="list-group-item d-flex justify-content-between">
+					<div>
+						<div th:text="${session.name}"></div>
+						<div>댓글 내용입니다~~~~~~~</div>
+					</div>
+					<button>삭제</button>
+				</li>
 			</ul>
-		</div>
+		</div> -->
 			<script>
 		        $(document).ready(function(){
 		            $('.summernote').summernote({
