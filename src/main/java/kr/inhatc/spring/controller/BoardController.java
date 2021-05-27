@@ -162,13 +162,13 @@ public class BoardController {
 			
 			// Y : 증가 N : 감소
 			if (chkYn.equals("Y")) {
-				bool = boardService.updatePlusGoodCnt(boardId) == 1;
-				likeInfoRepository.updateChkYn(boardId, empSeq, "N");
-				goodCnt += 1;
-			} else {
 				bool = boardService.updateMinusGoodCnt(boardId) == 1;
-				likeInfoRepository.updateChkYn(boardId, empSeq, "Y");
+				likeInfoRepository.updateChkYn(boardId, empSeq, "N");
 				goodCnt -= 1;
+			} else {
+				bool = boardService.updatePlusGoodCnt(boardId) == 1;
+				likeInfoRepository.updateChkYn(boardId, empSeq, "Y");
+				goodCnt += 1;
 			}
 		}
 		
