@@ -20,7 +20,7 @@ public class File {
 	private long fileId;
 	
 	@Column(nullable = false)
-	private String origFileName;
+	private String origFilename;
 
 	@Column(nullable = false)
 	private String fileName;
@@ -29,9 +29,9 @@ public class File {
 	private String filePath;
 
 	@Builder
-	public File(long fileId, String origFileName, String fileName, String filePath) {
+	public File(long fileId, String origFilename, String fileName, String filePath) {
 		this.fileId= fileId;
-		this.origFileName= origFileName;
+		this.origFilename= origFilename;
 		this.fileName= fileName;
 		this.filePath= filePath;
 	}

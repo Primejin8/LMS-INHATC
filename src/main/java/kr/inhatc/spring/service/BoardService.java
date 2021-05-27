@@ -70,7 +70,6 @@ public class BoardService {
 				.build();
 		return boardDto;
 	}
-	
 	//삭제버튼 누르면 /post/{board_id}로 delete 요청하도록 deletePost()추가
 	@Transactional
 	public void deltePost(int boardId) {

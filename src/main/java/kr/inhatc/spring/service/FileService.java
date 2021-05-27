@@ -24,7 +24,7 @@ public class FileService {
 		
 		FileDto fileDto = FileDto.builder()
 				.fileId(fileId)
-				.origFileName(file.getOrigFileName())
+				.origFilename(file.getOrigFilename())
 				.fileName(file.getFileName())
 				.filePath(file.getFilePath())
 				.build();

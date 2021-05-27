@@ -46,11 +46,9 @@ public class Board {
    private String boardContent;
 
    // 좋아요
-   @Column(updatable = false)
    private int goodCnt;
    
    // 조회수
-   @Column(updatable = false)
    private int hitCnt;
 
    // 게시물 작성자

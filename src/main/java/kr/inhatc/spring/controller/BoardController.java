@@ -160,15 +160,15 @@ public class BoardController {
 			String chkYn = likeDTO.getChkYn();
 			logger.info("chkYn :: " + chkYn);
 			
-			// Y : 감소 N : 증가
+			// Y : 증가 N : 감소
 			if (chkYn.equals("Y")) {
-				bool = boardService.updateMinusGoodCnt(boardId) == 1;
-				likeInfoRepository.updateChkYn(boardId, empSeq, "N");
-				goodCnt -= 1;
-			} else {
 				bool = boardService.updatePlusGoodCnt(boardId) == 1;
-				likeInfoRepository.updateChkYn(boardId, empSeq, "Y");
+				likeInfoRepository.updateChkYn(boardId, empSeq, "N");
 				goodCnt += 1;
+			} else {
+				bool = boardService.updateMinusGoodCnt(boardId) == 1;
+				likeInfoRepository.updateChkYn(boardId, empSeq, "Y");
+				goodCnt -= 1;
 			}
 		}
 		
