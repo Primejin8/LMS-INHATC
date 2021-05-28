@@ -20,19 +20,29 @@
 				}
 			});
 </script>
+<style>
+	.title__overflow{
+		white-space: nowrap;
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 100px;		
+	}
+</style>
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
 		<h3 class="m-3">토론방</h3>
 		<div class="container-fluid">
 			<form class="form-inline d-flex justify-content-end">
-			&nbsp; 
-			<select id="searchType" class="form-select" style="width: 90px; height: 40px;" aria-label="Default select example">
-				<option value="all">전체</option>
-				<option value="title">제목</option>
-				<option value="contents">내용</option>
-				<option value="writer">작성자</option>
-			</select>
+				&nbsp; <select id="searchType" class="form-select"
+					style="width: 90px; height: 40px;"
+					aria-label="Default select example">
+					<option value="all">전체</option>
+					<option value="title">제목</option>
+					<option value="contents">내용</option>
+					<option value="writer">작성자</option>
+				</select>
 				<div class="form-group mx-sm-3 mb-2">
 					<label for="searchText" class="sr-only">검색</label> <input
 						type="text" class="form-control" id="searchText" name="searchText"
@@ -41,22 +51,23 @@
 				<button type="button" class="btn btn-primary mb-2"
 					onclick="search();">검색</button>
 			</form>
-			
+
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
-						<th scope="col">번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">작성일</th>
-						<th scope="col">조회수</th>
+						<th scope="col" style="width: 5%;">번호</th>
+						<th scope="col" style="width: 30%;">제목</th>
+						<th scope="col" style="width: 15%;">작성자</th>
+						<th scope="col" style="width: 30%;">작성일</th>
+						<th scope="col" style="width: 10%;">조회수</th>
+						<th scope="col" style="width: 10%;">공감수</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr class="text-center" th:each="post : ${postList}">
 						<th scope="row"><span th:text="${post.boardId}"></span></th>
-						<td><a th:href="@{'/post/' + ${post.boardId}}"> <span
+						<td ><a th:href="@{'/post/' + ${post.boardId}}" class="title__overflow"> <span
 								th:text="${post.boardTitle}"></span>
 						</a></td>
 						<td><span th:text="${post.boardWriter}"></span></td>
@@ -73,7 +84,9 @@
 					<li class="page-item"
 						th:classappend="${1 == postList.pageable.pageNumber + 1 } ? 'disabled'">
 						<a class="page-link" href="#"
-						th:href="@{/boardList(page=${postList.pageable.pageNumber - 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}"
+						th:href="@{/boardList(page=${postList.pageable.pageNumber - 1}, 
+							searchType = ${param.searchType}, 
+							searchText = ${param.searchText} )}"
 						tabindex="-1" aria-disabled="true">Previous</a>
 					</li>
 					<li class="page-item"
@@ -86,7 +99,9 @@
 					<li class="page-item"
 						th:classappend="${postList.totalPages == postList.pageable.pageNumber + 1 } ? 'disabled'">
 						<a class="page-link" href="#"
-						th:href="@{/boardList(page=${postList.pageable.pageNumber + 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}">Next</a>
+						th:href="@{/boardList(page=${postList.pageable.pageNumber + 1}, 
+							searchType = ${param.searchType}, 
+							searchText = ${param.searchText} )}">Next</a>
 					</li>
 				</ul>
 			</nav>
