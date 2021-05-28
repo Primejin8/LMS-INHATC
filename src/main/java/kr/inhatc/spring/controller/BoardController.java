@@ -138,6 +138,7 @@ public class BoardController {
 		return "redirect:/boardList";
 	}
 
+	
 	// 글 상세보기 창 매핑
 	// URL경로에 변수를 넘겨주는 역할 Pathvariable
 	@GetMapping("/post/{boardId}")
@@ -151,6 +152,8 @@ public class BoardController {
 		model.addAttribute("file", fileDto);
 		System.out.println(boardDto);
 		System.out.println(fileDto);
+		//TODO logging
+		
 		return "board/detail";
 	}
 
