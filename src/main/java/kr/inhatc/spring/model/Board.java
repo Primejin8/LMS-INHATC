@@ -45,6 +45,8 @@ public class Board {
    @Lob	
    @Column(columnDefinition = "varchar(10000)")
    private String boardContent;
+   
+   private long fileId;
 
    // 좋아요
    private int goodCnt;
@@ -78,10 +80,11 @@ public class Board {
    private LocalDateTime modifiedDate;
    
    @Builder
-   public Board(int boardId, String boardTitle, String boardContent, int goodCnt, int hitCnt, String boardWriter, String createSeq, String modifySeq) {
+   public Board(int boardId, String boardTitle, String boardContent, long fileId, int goodCnt, int hitCnt, String boardWriter, String createSeq, String modifySeq) {
 	   this.boardId = boardId;
 	   this.boardTitle= boardTitle;
 	   this.boardContent= boardContent;
+	   this.fileId= fileId;
 	   this.goodCnt= goodCnt;
 	   this.hitCnt= hitCnt;
 	   this.boardWriter= boardWriter;

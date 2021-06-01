@@ -13,6 +13,7 @@ public class BoardDto {
 	private int boardId;
 	private String boardTitle;
 	private String boardContent;
+	private long fileId;
 	private int goodCnt;
 	private int hitCnt;
 	private String boardWriter;
@@ -30,6 +31,7 @@ public class BoardDto {
 				.boardTitle(boardTitle)
 				.boardContent(boardContent)
 				.boardWriter(boardWriter)
+				.fileId(fileId)
 				.goodCnt(goodCnt)
 				.hitCnt(hitCnt)
 				.createSeq(createSeq)
@@ -39,11 +41,12 @@ public class BoardDto {
 	}
 
 	@Builder
-	public BoardDto(int boardId, String boardTitle, String boardContent, int goodCnt, int hitCnt, String boardWriter
+	public BoardDto(int boardId, String boardTitle, String boardContent, long fileId, int goodCnt, int hitCnt, String boardWriter
 			,String useYn, String createSeq, LocalDateTime createdDate, String modifySeq, LocalDateTime modifiedDate) {
 		this.boardId = boardId;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
+		this.fileId = fileId;
 		this.goodCnt = goodCnt;
 		this.hitCnt = hitCnt;
 		this.boardWriter = boardWriter;
