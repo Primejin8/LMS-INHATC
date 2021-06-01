@@ -36,6 +36,7 @@ public class BoardService {
 					.boardId(board.getBoardId())
 					.boardTitle(board.getBoardTitle())
 					.boardContent(board.getBoardContent())
+					.fileId(board.getFileId())
 					.goodCnt(board.getGoodCnt())
 					.hitCnt(board.getHitCnt())
 					.boardWriter(board.getBoardWriter())

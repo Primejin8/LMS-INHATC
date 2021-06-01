@@ -28,11 +28,14 @@ public class File {
 	@Column(nullable = false)
 	private String filePath;
 
+	private int boardId;
+	
 	@Builder
-	public File(long fileId, String origFilename, String fileName, String filePath) {
+	public File(long fileId, String origFilename, String fileName, String filePath, int boardId) {
 		this.fileId= fileId;
 		this.origFilename= origFilename;
 		this.fileName= fileName;
 		this.filePath= filePath;
+		this.boardId= boardId;
 	}
 }

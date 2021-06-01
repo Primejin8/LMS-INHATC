@@ -1,0 +1,36 @@
+다른부분
+36:15초에
+BoardServiceImpl로 
+public void boardInsert(BoardDto board, MultipartSe~~~~)
+	boardMapper.boardInsert(board);
+이부분이 빠짐으로 
+
+
+
+
+		if(ObjectUtils.isEmpty(multipartHttpServletRequest) ==false) {
+			Iterator<String> iter = multipartHttpServletRequest.getFileNames();
+			
+			while(iter.hasNext()) {
+				String name = iter.next();
+				
+				List<MultipartFile> list = multipartHttpServletRequest.getFiles(name);
+				for (MultipartFile multipartFile : list) {
+					System.out.println("=====>file name : "+multipartFile.getOriginalFilename());
+					System.out.println("=====>file size : "+multipartFile.getSize());
+					System.out.println("=====>file type : "+multipartFile.getContentType());
+				}
+			}
+		}
+
+
+1. 파일 저장 (따로 폴더에 저장하는거 이건 그블로그에서도 됐었음)
+
+2. 디비 저장
+
+
+모든파일 ->이미지파일만 하시는부분 빼도될거같은 부분
+24:35 대
+
+boardMapper.boardFileInsert(list); 
+40:08대

@@ -20,7 +20,7 @@
 					<thead class="thead-light">
 						<tr class="text-center"> 
 							<th colspan="4" th:utext="${weekPost.weekNumber} + ' 주차<br/>' +
- 								${weekPost.createDate} + ' ~ ' + ${weekPost.endDate}">
+ 								${weekPost.startDate} + ' ~ ' + ${weekPost.endDate}">
 							</th>
 							<th><a class="btn" th:href="@{'/weekPost/weekEdit/' + ${weekPost.weekId}}">+</a></th>
 						</tr>

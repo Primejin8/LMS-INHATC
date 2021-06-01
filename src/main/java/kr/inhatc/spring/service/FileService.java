@@ -1,5 +1,6 @@
 package kr.inhatc.spring.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,10 @@ public class FileService {
 				.origFilename(file.getOrigFilename())
 				.fileName(file.getFileName())
 				.filePath(file.getFilePath())
+				.boardId(file.getBoardId())
 				.build();
 		
 		return fileDto;
 	}
+	
 }

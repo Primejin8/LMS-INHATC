@@ -13,7 +13,7 @@ public class BoardDto {
 	private int boardId;
 	private String boardTitle;
 	private String boardContent;
-	private Long fileId;
+	private long fileId;
 	private int goodCnt;
 	private int hitCnt;
 	private String boardWriter;
@@ -41,7 +41,7 @@ public class BoardDto {
 	}
 
 	@Builder
-	public BoardDto(int boardId, String boardTitle, String boardContent, Long fileId, int goodCnt, int hitCnt, String boardWriter
+	public BoardDto(int boardId, String boardTitle, String boardContent, long fileId, int goodCnt, int hitCnt, String boardWriter
 			,String useYn, String createSeq, LocalDateTime createdDate, String modifySeq, LocalDateTime modifiedDate) {
 		this.boardId = boardId;
 		this.boardTitle = boardTitle;
