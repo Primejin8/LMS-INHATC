@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:insert="/fragments/config.html">
+<meta charset="UTF-8">
+<title>주차편집</title>
+</head>
+<th:block
+	th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h3 class="m-3">주차 추가하기</h3>
+		<div class="container-fluid">
+			<form action="/weekPost" method="post" enctype="multipart/form-data">
+				<!-- 주차수 -->
+				<div class="form-group row">
+					<label for="inputNumber" class="col-sm-2 col-form-label"><strong>주차수</strong></label>
+					<div>
+						<input type="number" class="form-control" id="weekNumber" name="weekNumber" min="1" max="20" style="width: 10%;">
+					</div>
+				</div>
+				<!-- 시작일, 종료일 -->
+				<div class="form-group row">
+					<label for="inputCDate" class="col-sm-2 col-form-label"><strong>시작일</strong></label>
+					<div>
+						<input type="date" name="createDate" class="form-control" id="createDate" style="width: 30%;">
+					</div>
+					<label for="inputEDate" class="col-sm-2 col-form-label"><strong>종료일</strong></label>
+					<div>
+						<input type="date" name="endDate" class="form-control" id="endDate" style="width: 30%;">
+					</div>
+				</div>
+				<!-- 영상 -->
+				<div class="form-group row">
+				</div>
+				<!-- 과제 -->
+				<div class="form-group row">
+				</div>
+				<!-- 자료 -->
+				<div class="form-group row">
+				</div>
+				
+				<div class="row">
+					<div class="col-auto mr-auto"></div>
+					<div class="col-auto float-right">
+						<input class="btn btn-primary" type="submit" role="button" value="글쓰기">
+					</div>
+				</div>
+			</form>
+		</div>
+	</th:block>
+</th:block>
+</html>
