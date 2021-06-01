@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!-- boardList.js 파일 적용 -->
-<script type="text/javascript" src="/js/subjectList.js"></script>
 <!-- config.html 추가하여 css, script 설정 -->
 <head th:insert="/fragments/config.html">
 <title>인하공업전문대학</title>
@@ -10,36 +8,29 @@
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h3 class="m-3">내 강의실</h3>
+		<h3 class="m-3">강의 목록</h3>
 		<div class="container-fluid">
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
 						<th scope="col">번호</th>
-						<th scope="col">이수구분</th>
 						<th scope="col">강의명</th>
-						<th scope="col">학점</th>
 						<th scope="col">담당교수</th>
-						<th scope="col">수강인원</th>
 						<th scope="col">입장</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr class="text-center" th:each="list : ${subjectList}">
+					<tr class="text-center" th:each="list : ${studentList}">
 						<th scope="row"><span th:text="${list.seq}"></span></th>
-						<td><span th:text="${list.gubun}"></span></td>
 						<td><span th:text="${list.subName}"></span></td>
-						<td><span th:text="${list.hakjum}"></span></td>
 						<td><span th:text="${list.empName}"></span></td>
-						<td><span th:text="${list.stuCnt}"></span></td>
 						<td>
-							<button type="submit" class="btn btn-danger" th:onclick="javascript:btnGoodCnt([[${list.seq}]], [[${session.id}]])" >추가</button>
+							<button type="button" class="btn btn-danger" >입장</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 	</th:block>
 </th:block>
-</script>
 </html>

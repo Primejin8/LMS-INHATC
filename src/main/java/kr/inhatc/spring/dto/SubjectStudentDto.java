@@ -22,7 +22,13 @@ public class SubjectStudentDto {
 
 	// 사업장시퀀스
 	private String bizSeq;
-
+	
+	// 사용자시퀀스
+	private String empSeq;
+	
+	// 사용자이름 (나중에 빼야됌)
+	private String empName;
+	
 	// 강의 시퀀스
 	private String subSeq;
 	
@@ -52,7 +58,10 @@ public class SubjectStudentDto {
 				.groupSeq(groupSeq)
 				.compSeq(compSeq)
 				.bizSeq(bizSeq)
+				.empSeq(empSeq)
+				.empName(empName)
 				.subName(subName)
+				.subSeq(subSeq)
 				.createSeq(createSeq)
 				.modifySeq(modifySeq).build();
 		return build;
@@ -65,6 +74,9 @@ public class SubjectStudentDto {
 		this.groupSeq = groupSeq;
 		this.compSeq = compSeq;
 		this.bizSeq = bizSeq;
+		this.subSeq = subSeq;
+		this.empSeq = empSeq;
+		this.empName = empName;
 		this.subSeq = subSeq;
 		this.subName = subName;
 		this.useYn = useYn;

@@ -43,6 +43,14 @@ public class SubjectStudent {
 	// 사업장시퀀스
 	@Column(columnDefinition = "varchar(32)")
 	private String bizSeq;
+	
+	// 사용자시퀀스
+	@Column(columnDefinition = "varchar(32)")
+	private String empSeq;
+	
+	// 사용자이름
+	@Column(columnDefinition = "varchar(32)")
+	private String empName;
 
 	// 강의 시퀀스
 	@Column(columnDefinition = "varchar(32)")
@@ -75,14 +83,18 @@ public class SubjectStudent {
 	private LocalDateTime modifiedDate;
 
 	@Builder
-	public SubjectStudent(int seq, String groupSeq, String compSeq, String bizSeq, String subSeq, String subName, String useYn,
+	public SubjectStudent(int seq, String groupSeq, String compSeq, String bizSeq, String empSeq, String empName,
+			String subSeq, String subName, String useYn,
 			String createSeq, LocalDateTime createdDate, String modifySeq, LocalDateTime modifiedDate) {
 		this.seq = seq;
 		this.groupSeq = groupSeq;
 		this.compSeq = compSeq;
 		this.bizSeq = bizSeq;
 		this.subSeq = subSeq;
+		this.empSeq = empSeq;
+		this.empName = empName;
 		this.subName = subName;
+		this.subSeq = subSeq;
 		this.useYn = useYn;
 		this.createSeq = createSeq;
 		this.modifySeq = modifySeq;

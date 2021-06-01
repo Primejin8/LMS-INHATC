@@ -34,7 +34,7 @@
 						<td><span th:text="${list.empName}"></span></td>
 						<td><span th:text="${list.stuCnt}"></span></td>
 						<td>
-							<button type="submit" class="btn btn-danger" th:onclick="javascript:btnGoodCnt([[${list.seq}]], [[${session.id}]])" >추가</button>
+							<button type="submit" class="btn btn-danger" th:onclick="javascript:btnSubjectAdd([[${list.seq}]], [[${session.id}]], [[${session.name}]], [[${list.subName}]] )" >추가</button>
 						</td>
 					</tr>
 				</tbody>
