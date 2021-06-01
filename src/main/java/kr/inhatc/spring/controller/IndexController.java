@@ -60,6 +60,10 @@ public class IndexController {
 		session.setAttribute("department", userEntity.getDepartment());
 		session.setAttribute("email", userEntity.getEmail());
 		session.setAttribute("role", userEntity.getRole());
+
+		session.setAttribute("groupSeq", "INHATC");
+		session.setAttribute("compSeq", "1000");
+		session.setAttribute("bizSeq", "1000");
 		return "index";
 	}
 	

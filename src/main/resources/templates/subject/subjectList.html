@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- boardList.js 파일 적용 -->
+<script type="text/javascript" src="/js/subjectList.js"></script>
+<!-- config.html 추가하여 css, script 설정 -->
+<head th:insert="/fragments/config.html">
+<title>인하공업전문대학</title>
+</head>
+<th:block
+	th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h3 class="m-3">강의 목록</h3>
+		<div class="container-fluid">
+			<table class="table">
+				<thead class="thead-light">
+					<tr class="text-center">
+						<th scope="col">번호</th>
+						<th scope="col">이수구분</th>
+						<th scope="col">강의명</th>
+						<th scope="col">학점</th>
+						<th scope="col">담당교수</th>
+						<th scope="col">수강인원</th>
+						<th scope="col">강의추가</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="text-center" th:each="list : ${subjectList}">
+						<th scope="row"><span th:text="${list.seq}"></span></th>
+						<td><span th:text="${list.gubun}"></span></td>
+						<td><span th:text="${list.subName}"></span></td>
+						<td><span th:text="${list.hakjum}"></span></td>
+						<td><span th:text="${list.empName}"></span></td>
+						<td><span th:text="${list.stuCnt}"></span></td>
+						<td>
+							<button type="submit" class="btn btn-danger" th:onclick="javascript:btnSubjectAdd([[${list.seq}]], [[${session.id}]], [[${session.name}]], [[${list.subName}]] )" >추가</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="subjectAdd">
+				<div class="row">
+					<div class="col">
+						<a class="btn btn-primary" th:href="@{/subjectPost}" role="button">강의추가</a>
+					</div>
+				</div>
+			</div>
+	</th:block>
+</th:block>
+<script>
+	$(document).ready(function() {
+		var role = '[[ ${session.role} ]]';
+		if(role != "ROLE_PROF")
+			$('#subjectAdd').hide();
+	});
+</script>
+</html>
