@@ -12,11 +12,15 @@ import lombok.NoArgsConstructor;
 public class BoardDto {
 	private int boardId;
 	private String boardTitle;
-	private String boardWriter;
 	private String boardContent;
 	private Long fileId;
+	private int goodCnt;
 	private int hitCnt;
+	private String boardWriter;
+	private String useYn;
+	private String createSeq;
 	private LocalDateTime createdDate;
+	private String modifySeq;
 	private LocalDateTime modifiedDate;
 //	   private String delete_yn;
 
@@ -28,20 +32,27 @@ public class BoardDto {
 				.boardContent(boardContent)
 				.boardWriter(boardWriter)
 				.fileId(fileId)
+				.goodCnt(goodCnt)
 				.hitCnt(hitCnt)
+				.createSeq(createSeq)
+				.modifySeq(modifySeq)
 				.build();
 		return build;
 	}
 
 	@Builder
-	public BoardDto(int boardId, String boardWriter, String boardTitle, String boardContent, Long fileId, int hitCnt
-			, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+	public BoardDto(int boardId, String boardTitle, String boardContent, Long fileId, int goodCnt, int hitCnt, String boardWriter
+			,String useYn, String createSeq, LocalDateTime createdDate, String modifySeq, LocalDateTime modifiedDate) {
 		this.boardId = boardId;
-		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.fileId = fileId;
+		this.goodCnt = goodCnt;
 		this.hitCnt = hitCnt;
+		this.boardWriter = boardWriter;
+		this.useYn = useYn;
+		this.createSeq = createSeq;
+		this.modifySeq = modifySeq;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 	}

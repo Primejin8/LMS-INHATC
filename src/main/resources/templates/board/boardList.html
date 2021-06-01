@@ -59,8 +59,8 @@
 						<th scope="col" style="width: 30%;">제목</th>
 						<th scope="col" style="width: 15%;">작성자</th>
 						<th scope="col" style="width: 30%;">작성일</th>
-						<th scope="col" style="width: 10%;">조회수</th>
 						<th scope="col" style="width: 10%;">공감수</th>
+						<th scope="col" style="width: 10%;">조회수</th>
 					</tr>
 				</thead>
 
@@ -74,6 +74,7 @@
 						<td><span
 							th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
 						</td>
+						<td><span th:text="${post.goodCnt}"></span></td>
 						<td><span th:text="${post.hitCnt}"></span></td>
 					</tr>
 				</tbody>
