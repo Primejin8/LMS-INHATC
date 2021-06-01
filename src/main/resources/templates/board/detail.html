@@ -18,6 +18,7 @@
 					</div>
 					<p class="card-text">
 						<small class="text-muted m-2" th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></small>
+						<img src="/img/icon_like_small_on.png" alt="" th:onclick="javascript:btnGoodCnt([[${post.boardId}]], [[${session.id}]])" />&nbsp;<span id="goodCnt" th:text="${post.goodCnt}"></span>
 					</p>
 				</div>
 				<div class="card-body">
