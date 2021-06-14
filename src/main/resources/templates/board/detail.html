@@ -8,8 +8,8 @@
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h3 class="m-3">글 상세보기</h3>
 		<div class="container">
+			<h3 class="m-3">글 상세보기</h3>
 			<div class="card">
 				<div class="card-header">
 					<div class="card-title d-flex justify-content-between">
@@ -51,15 +51,15 @@
 		</div>
 
 		<!-- 댓글 -->
-		<!-- <form>
-			<input type="hidden" id="boardId" value="${post.boardId}"/>
+		<form th:action="@{'/post/' + ${post.boardId}}" method="post">
+			<input type="hidden" id="commentWriter" name="commentWriter" th:value="${session.name}"/>
 			<div class="card m-3">
 				<div class="card-header">댓글 작성</div>
 				<div class="card-body">
-					<textarea class="form-control" rows="2" id="CommentId" name="CommentContent"></textarea>
+					<textarea class="form-control" rows="2" id="commentContent" name="commentContent"></textarea>
 				</div>
 				<div class="card-footer">
-					<button class="btn-primary" id="CommentId">등록</button>
+					<button class="btn-primary" type="submit">등록</button>
 				</div>
 			</div>
 		</form>
@@ -67,15 +67,14 @@
 		<div class="card m-3">
 			<div class="card-header">댓글 리스트</div>
 			<ul id="comment--box" class="list-group">
-				<li id="comment" class="list-group-item d-flex justify-content-between">
+				<li th:each="comment : ${commentList}" id="comment" class="list-group-item d-flex justify-content-between">
 					<div>
-						<div th:text="${session.name}"></div>
-						<div>댓글 내용입니다~~~~~~~</div>
+						<div th:text="${comment.commentWriter}"></div>
+						<div th:utext="'&nbsp;&nbsp;&nbsp;-&nbsp;' + ${comment.commentContent}" style="color: #787878;"></div>
 					</div>
-					<button>삭제</button>
 				</li>
 			</ul>
-		</div> -->
+		</div>
 			<script>
 		        $(document).ready(function(){
 		            $('.summernote').summernote({

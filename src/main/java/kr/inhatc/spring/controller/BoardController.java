@@ -35,15 +35,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.inhatc.spring.dto.BoardDto;
+import kr.inhatc.spring.dto.CommentDto;
 import kr.inhatc.spring.dto.FileDto;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.inhatc.spring.dto.LikeInfoDto;
 import kr.inhatc.spring.model.Board;
+import kr.inhatc.spring.model.Comment;
 import kr.inhatc.spring.repository.BoardRepository;
+import kr.inhatc.spring.repository.CommentRepository;
 import kr.inhatc.spring.repository.LikeInfoRepository;
 import kr.inhatc.spring.service.BoardService;
+import kr.inhatc.spring.service.CommentService;
 import kr.inhatc.spring.service.FileService;
 import kr.inhatc.spring.util.MD5Generator;
 import kr.inhatc.spring.service.LikeInfoService;
@@ -55,18 +59,19 @@ public class BoardController {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
 	@Autowired
 	private LikeInfoRepository likeInfoRepository;
+	@Autowired 
+	private CommentRepository commentRepository;
 
 	@Autowired
 	private BoardService boardService;
-
 	@Autowired
 	private FileService fileService;
-	
 	@Autowired
 	private LikeInfoService likeInfoService;
+	@Autowired
+	private CommentService commentService;
 
 //	없어도 되는 생성자?
 //	public BoardController(BoardService boardService) {
@@ -156,16 +161,20 @@ public class BoardController {
 	// 글 상세보기 창 매핑
 	// URL경로에 변수를 넘겨주는 역할 Pathvariable
 	@GetMapping("/post/{boardId}")
-	public String detail(@PathVariable("boardId") int boardId, Model model) {
+	public String detail(@PathVariable("boardId") int boardId, Model model,
+			@PageableDefault(size=10, sort="commentId", direction = Sort.Direction.ASC) Pageable pageable) { // 댓글 10개씩 보여주기
 		BoardDto boardDto = boardService.getPost(boardId);
-
 		FileDto fileDto = fileService.getFile(boardDto.getFileId());
+		Page<Comment> commentList = null; // 댓글 리스트 불러오기
+		
+		commentList = commentRepository.findAll(pageable);
+		
 		boardService.savePost(boardDto);
 		boardService.updateView(boardDto.getBoardId());
+		
 		model.addAttribute("post", boardDto);
 		model.addAttribute("file", fileDto);
-//		System.out.println(boardDto);
-//		System.out.println(fileDto);
+		model.addAttribute("commentList", commentList);
 		//TODO logging
 		
 		logger.info("post :: " + boardDto);
@@ -173,6 +182,16 @@ public class BoardController {
 		// ModelAndView view = new ModelAndView();
 		// view.setViewName("detail");
 		return "board/detail";
+	}
+	
+	// 댓글 작성
+	@PostMapping("/post/{boardId}")
+	public String comment(@PathVariable("boardId") int boardId, CommentDto commentDto, Model model) {
+		commentService.saveComment(commentDto);
+		commentDto.setBoardId(boardId);
+		
+		model.addAttribute("comment", commentDto);
+		return "redirect:/post/{boardId}";
 	}
 
 	// 좋아요 수 증가

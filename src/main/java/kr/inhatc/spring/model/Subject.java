@@ -1,5 +1,6 @@
 package kr.inhatc.spring.model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -63,11 +64,11 @@ public class Subject {
 	// 개설기간
 	// 시작일자
 	@Column(columnDefinition = "varchar(32)")
-	private String sDate;
+	private Date sDate;
 
 	// 종료일자
 	@Column(columnDefinition = "varchar(32)")
-	private String eDate;
+	private Date eDate;
 
 	// 수강인원
 	@Column(columnDefinition = "varchar(32)")
@@ -97,7 +98,7 @@ public class Subject {
 
 	@Builder
 	public Subject(int seq, String groupSeq, String compSeq, String bizSeq, String gubun, String subName, String empName, String hakjum,
-			String sDate, String eDate, String stuCnt, String useYn, String createSeq, LocalDateTime createdDate,
+			Date sDate, Date eDate, String stuCnt, String useYn, String createSeq, LocalDateTime createdDate,
 			String modifySeq, LocalDateTime modifiedDate) {
 		this.seq = seq;
 		this.groupSeq = groupSeq;

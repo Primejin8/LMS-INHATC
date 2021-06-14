@@ -1,5 +1,6 @@
 package kr.inhatc.spring.dto;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import kr.inhatc.spring.model.Subject;
@@ -37,10 +38,10 @@ public class SubjectDto {
 
 	// 개설기간
 	// 시작일자
-	private String sDate;
+	private Date sDate;
 
 	// 종료일자
-	private String eDate;
+	private Date eDate;
 
 	// 수강인원
 	private String stuCnt;
@@ -82,7 +83,7 @@ public class SubjectDto {
 
 	@Builder
 	public SubjectDto(int seq, String groupSeq, String compSeq, String bizSeq, String gubun, String subName, String empName,
-			String hakjum, String sDate, String eDate, String stuCnt, String useYn, String createSeq,
+			String hakjum, Date sDate, Date eDate, String stuCnt, String useYn, String createSeq,
 			LocalDateTime createdDate, String modifySeq, LocalDateTime modifiedDate) {
 		this.seq = seq;
 		this.groupSeq = groupSeq;

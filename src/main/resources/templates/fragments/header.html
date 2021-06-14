@@ -6,7 +6,8 @@
 		background-color: #00aaff;
 	}
 	.sidebar {
-		background-color: #2d2b2f;
+		color: #c8c8c8;
+		background-color: #191919;
 		text-align: center;
 	}
 	@media (max-width: 1200px){
@@ -18,15 +19,15 @@
 	<body>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar-->
-			<div class="border-right dis" id="sidebar-wrapper" style="height: 100vh; width: 20%;">
-				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem;">
+			<div class="border-right dis" id="sidebar-wrapper" style="height: 100%; width: 20%;">
+				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem; height: 10%;">
 					<div class="row">
 						<div class="col">
 							<img alt="인하공업전문대학" src="/img/logo2.png" style=" width:100%;">
 						</div>
 					</div>
 				</div>
-				<div class="list-group list-group-flush sidebar" style="height: 100vh; width: 100%">
+				<div class="list-group list-group-flush" style="height:80%; width: 100%;">
 					<a class="list-group-item list-group-item-action sidebar" href="/studentList">내 강의실</a>
 					<a class="list-group-item list-group-item-action sidebar" href="/subjectList">강의 목록</a>
 					<a class="list-group-item list-group-item-action sidebar" href="/boardList">토론방</a>
@@ -50,7 +51,7 @@
 						</form>
 					</div>
 				</nav>
-				<div class="container-fluid">
+				<div class="container-fluid" style="overflow-y: scroll">
 					<th:block th:insert="${content}"></th:block>
 				</div>
 			</div>

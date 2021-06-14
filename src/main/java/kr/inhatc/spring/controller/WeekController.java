@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import kr.inhatc.spring.dto.SubjectDto;
 import kr.inhatc.spring.dto.WeekDto;
 import kr.inhatc.spring.model.week.Week;
 import kr.inhatc.spring.repository.WeekRepository;
+import kr.inhatc.spring.service.SubjectService;
 import kr.inhatc.spring.service.WeekService;
 
 @Controller
@@ -28,6 +30,9 @@ public class WeekController {
 	
 	@Autowired
 	private WeekService weekService;
+	
+	@Autowired
+	private SubjectService subjectService;
 
 	public WeekController() {
 		logger.info("############### Create WeekController ###############");
@@ -36,9 +41,8 @@ public class WeekController {
 	// 주차정보 리스트
 	@GetMapping("/weekList")
 	public String weekList(Model model, 
-			@PageableDefault(size=3, sort="weekNumber", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size=10, sort="weekNumber", direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<Week> weekDtoList = null;
-		
 		weekDtoList = weekRepository.findAll(pageable);
 		
 		int startPage = Math.max(1, weekDtoList.getPageable().getPageNumber() - 4);
@@ -56,6 +60,7 @@ public class WeekController {
 	public String detail(@PathVariable("weekId") int weekId, Model model) {
 		WeekDto weekDto = weekService.getWeek(weekId);
 		
+		
 		weekService.saveWeek(weekDto);
 		model.addAttribute("weekPost", weekDto);
 		return "week/weekDetail";
@@ -66,6 +71,7 @@ public class WeekController {
 	public String weekPost() {
 		return "week/weekPost";
 	}
+	
 	@PostMapping("/weekPost")
 	public String write(WeekDto weekDto) {
 		weekService.saveWeek(weekDto);

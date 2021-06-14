@@ -32,10 +32,13 @@
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h3 class="m-3">토론방</h3>
 		<div class="container-fluid">
+			<div class="row">
+				<h3 class="m-3">토론방</h3>
+			</div>
 			<form class="form-inline d-flex justify-content-end">
-				&nbsp; <select id="searchType" class="form-select"
+				&nbsp; 
+				<select id="searchType" class="form-select"
 					style="width: 90px; height: 40px;"
 					aria-label="Default select example">
 					<option value="all">전체</option>

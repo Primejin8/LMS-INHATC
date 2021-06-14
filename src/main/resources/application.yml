@@ -10,7 +10,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://114.71.137.174:61083/security?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
   servlet:    multipart:      max-file-size: 100MB
