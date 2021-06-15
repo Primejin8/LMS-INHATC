@@ -19,7 +19,7 @@
 						<h5 class="m-2" th:text="@{${post.boardWriter}}"></h5>
 					</div>
 					<p class="card-text">
-						<small class="text-muted m-2" th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></small>
+						<small class="text-muted" th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></small>
 						<img src="/img/icon_like_small_on.png" alt="" th:onclick="javascript:btnGoodCnt([[${post.boardId}]], [[${session.id}]])" />&nbsp;<span id="goodCnt" th:text="${post.goodCnt}"></span>
 					</p>
 				</div>
@@ -53,7 +53,7 @@
 		</div>
 
 		<!-- 댓글 -->
-		<form th:action="@{'/post/' + ${post.boardId}}" method="post">
+		<form th:action="@{'/post/' + ${post.boardId}}" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="commentWriter" name="commentWriter" th:value="${session.name}"/>
 			<div class="card m-3">
 				<div class="card-header">댓글 작성</div>
@@ -61,7 +61,7 @@
 					<textarea class="form-control" rows="2" id="commentContent" name="commentContent"></textarea>
 				</div>
 				<div class="card-footer">
-					<button class="btn-primary" type="submit">등록</button>
+					<button class="btn-primary" role="button" type="submit">등록</button>
 				</div>
 			</div>
 		</form>
@@ -69,8 +69,9 @@
 		<div class="card m-3">
 			<div class="card-header">댓글 리스트</div>
 			<ul id="comment--box" class="list-group">
-				<li th:each="comment : ${commentList}" id="comment" class="list-group-item d-flex justify-content-between">
-					<div th:if="${comment.boardId} == ${post.boardId}">
+				<li th:each="comment : ${commentList}" id="comment" class="list-group-item d-flex justify-content-between"
+					th:if="${comment.boardId} == ${post.boardId}">
+					<div>
 						<div th:text="${comment.commentWriter}"></div>
 						<div th:utext="'&nbsp;&nbsp;&nbsp;-&nbsp;' + ${comment.commentContent}" style="color: #787878;"></div>
 					</div>

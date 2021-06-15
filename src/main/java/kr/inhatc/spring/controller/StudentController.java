@@ -35,7 +35,7 @@ public class StudentController {
 	@GetMapping("/studentList")
 	public String subjectList(Model model,
 			@PageableDefault(size = 10, sort = "seq", 
-			direction = Sort.Direction.DESC) Pageable pageable, SubjectDto subjectDto) {
+			direction = Sort.Direction.DESC) Pageable pageable) {
 		Page<SubjectStudent> subjectStudentDtoList = null;
 		
 		subjectStudentDtoList = SubjectStudentRepository.findAll(pageable);
@@ -46,7 +46,6 @@ public class StudentController {
 		model.addAttribute("startPage", startPage); // (key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage); // (key, value)형태로 view에 전달
 		model.addAttribute("studentList", subjectStudentDtoList); // (key, value)형태로 view에 전달
-		model.addAttribute("subject", subjectDto);
 		
 		return "student/studentList";
 	}

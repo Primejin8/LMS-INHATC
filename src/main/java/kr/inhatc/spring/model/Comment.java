@@ -38,10 +38,12 @@ public class Comment {
 	private int boardId;
 
 	@Builder
-	public Comment(int commentId, String commentWriter, String commentConntent, int boardId) {
+	public Comment(int commentId, String commentWriter, String commentConntent, LocalDateTime createDate, LocalDateTime modifiedDate, int boardId) {
 		this.commentId = commentId;
 		this.commentWriter = commentWriter;
 		this.commentContent = commentConntent;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
 		this.boardId = boardId;
 	}
 }
