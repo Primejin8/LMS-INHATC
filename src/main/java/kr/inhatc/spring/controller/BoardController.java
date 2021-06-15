@@ -6,12 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
@@ -19,7 +16,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -39,17 +35,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.inhatc.spring.dto.BoardDto;
+import kr.inhatc.spring.dto.CommentDto;
 import kr.inhatc.spring.dto.FileDto;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.inhatc.spring.dto.BoardDto;
 import kr.inhatc.spring.dto.LikeInfoDto;
 import kr.inhatc.spring.model.Board;
+import kr.inhatc.spring.model.Comment;
 import kr.inhatc.spring.repository.BoardRepository;
+import kr.inhatc.spring.repository.CommentRepository;
 import kr.inhatc.spring.repository.LikeInfoRepository;
 import kr.inhatc.spring.service.BoardService;
+import kr.inhatc.spring.service.CommentService;
 import kr.inhatc.spring.service.FileService;
 import kr.inhatc.spring.util.MD5Generator;
 import kr.inhatc.spring.service.LikeInfoService;
@@ -61,18 +59,19 @@ public class BoardController {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
 	@Autowired
 	private LikeInfoRepository likeInfoRepository;
+	@Autowired 
+	private CommentRepository commentRepository;
 
 	@Autowired
 	private BoardService boardService;
-
 	@Autowired
 	private FileService fileService;
-	
 	@Autowired
 	private LikeInfoService likeInfoService;
+	@Autowired
+	private CommentService commentService;
 
 //	없어도 되는 생성자?
 //	public BoardController(BoardService boardService) {
@@ -89,7 +88,6 @@ public class BoardController {
 			@PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "all") String searchType,
 			@RequestParam(required = false, defaultValue = "") String searchText) {
-		// Page<Board> boardDtoList = boardRepository.findAll(pageable);
 		Page<Board> boardDtoList = null;
 		if (searchType.equals("all")) {
 			if (!searchText.equals("")) {
@@ -163,17 +161,20 @@ public class BoardController {
 	// 글 상세보기 창 매핑
 	// URL경로에 변수를 넘겨주는 역할 Pathvariable
 	@GetMapping("/post/{boardId}")
-	// @ResponseBody
-	public String detail(@PathVariable("boardId") int boardId, Model model) {
+	public String detail(@PathVariable("boardId") int boardId, Model model,
+			@PageableDefault(size=10, sort="commentId", direction = Sort.Direction.ASC) Pageable pageable) { // 댓글 10개씩 보여주기
 		BoardDto boardDto = boardService.getPost(boardId);
-
 		FileDto fileDto = fileService.getFile(boardDto.getFileId());
+		Page<Comment> commentList = null; // 댓글 리스트 불러오기
+		
+		commentList = commentRepository.findAll(pageable);
+		
 		boardService.savePost(boardDto);
 		boardService.updateView(boardDto.getBoardId());
+		
 		model.addAttribute("post", boardDto);
 		model.addAttribute("file", fileDto);
-//		System.out.println(boardDto);
-//		System.out.println(fileDto);
+		model.addAttribute("commentList", commentList);
 		//TODO logging
 		
 		logger.info("post :: " + boardDto);
@@ -181,7 +182,16 @@ public class BoardController {
 		// ModelAndView view = new ModelAndView();
 		// view.setViewName("detail");
 		return "board/detail";
-		// return view;
+	}
+	
+	// 댓글 작성
+	@PostMapping("/post/{boardId}")
+	public String comment(@PathVariable("boardId") int boardId, CommentDto commentDto, Model model) {
+		commentService.saveComment(commentDto);
+		commentDto.setBoardId(boardId);
+		
+		model.addAttribute("comment", commentDto);
+		return "redirect:/post/{boardId}";
 	}
 
 	// 좋아요 수 증가
@@ -243,15 +253,15 @@ public class BoardController {
 	}
 
 	// 수정하는 창 매핑
-	@GetMapping("/post/edit/{boardId}")
-	public String edit(@PathVariable("boardId") int boardId, Model model) {
+		@GetMapping("/post/edit/{boardId}")
+		public String edit(@PathVariable("boardId") int boardId, Model model) {
 
-		BoardDto boardDto = boardService.getPost(boardId);
-		FileDto fileDto = fileService.getFile(boardDto.getFileId());
-		model.addAttribute("post", boardDto);
-		model.addAttribute("file", fileDto);
-		return "board/edit";
-	}
+			BoardDto boardDto = boardService.getPost(boardId);
+			FileDto fileDto = fileService.getFile(boardDto.getFileId());
+			model.addAttribute("post", boardDto);
+			model.addAttribute("file", fileDto);
+			return "board/edit";
+		}
 
 	// 수정버튼을 누르면 put형식으로 서버에게 /post/edit/{id} 요청이 가게됨
 	@PutMapping("/post/edit/{boardId}")
@@ -296,7 +306,6 @@ public class BoardController {
 		return "redirect:/boardList";
 	}
 
-
 	// 게시글 삭제
 	@DeleteMapping("/post/{boardId}")
 	public String delete(@PathVariable("boardId") int boardId) {
@@ -315,6 +324,5 @@ public class BoardController {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream"))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDto.getOrigFilename())
 				.body(resource);
-
 	}
 }

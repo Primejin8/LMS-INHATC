@@ -8,8 +8,8 @@
 <th:block
 	th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h3 class="m-3">내 강의실</h3>
 		<div class="container-fluid">
+			<h3 class="m-3">내 강의실</h3>
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
@@ -25,12 +25,11 @@
 						<th scope="row"><span th:text="${list.seq}"></span></th>
 						<td><span th:text="${list.subName}"></span></td>
 						<td><span th:text="${list.empName}"></span></td>
-						<td>
-							<button type="button" class="btn btn-danger" >입장</button>
-						</td>
+						<td><a th:href="@{'/weekList/' + ${subject.seq}}" class="btn btn-danger" style="font-size: 10px;">입장</a></td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
 	</th:block>
 </th:block>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.inhatc.spring.dto.SubjectDto;
@@ -50,11 +51,28 @@ public class SubjectController {
 	// Model 객체를 이용하여 데이터를 가져오고 View에 데이터를 넘겨줌
 	@GetMapping("/subjectList")
 	public String subjectList(Model model,
-			@PageableDefault(size = 10, sort = "seq", direction = Sort.Direction.DESC) Pageable pageable) {
+			@PageableDefault(size = 10, sort = "seq", direction = Sort.Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "all") String searchType,
+			@RequestParam(required = false, defaultValue = "") String searchText) {
 		Page<Subject> subjectDtoList = null;
-		subjectDtoList = subjectRepository.findAll(pageable);
+		
+		if (searchType.equals("all")) {
+			if (!searchText.equals("")) {
+				subjectDtoList = subjectRepository.findAllBysubNameContaining(searchText, pageable);
+			} else {
+				subjectDtoList = subjectRepository.findAll(pageable);
+			}
+		} else if (searchType.equals("subname")) {
+			subjectDtoList = subjectRepository.findAllBysubNameContaining(searchText, pageable);
+		} else if (searchType.equals("empname")) {
+			subjectDtoList = subjectRepository.findAllByempNameContaining(searchText, pageable);
+		} else {
+			subjectDtoList = subjectRepository.findAll(pageable);
+		}
+		
 		int startPage = Math.max(1, subjectDtoList.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(subjectDtoList.getTotalPages(), subjectDtoList.getPageable().getPageNumber() + 4);
+		
 		model.addAttribute("startPage", startPage); // (key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage); // (key, value)형태로 view에 전달
 		model.addAttribute("subjectList", subjectDtoList); // (key, value)형태로 view에 전달
@@ -67,9 +85,10 @@ public class SubjectController {
 	}
 
 	@PostMapping("/subjectPost")
-	public String write(SubjectDto subjectDto) {
+	public String write(SubjectDto subjectDto, Model model) {
 		logger.info("subjectDto :: " + subjectDto);
 		subjectService.saveSubject(subjectDto);
+		model.addAttribute("subject", subjectDto);
 		return "redirect:/subjectList";
 	}
 

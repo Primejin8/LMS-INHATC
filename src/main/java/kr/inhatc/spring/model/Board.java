@@ -16,6 +16,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.sun.istack.NotNull;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,6 +38,7 @@ public class Board {
    // 게시물 번호
    private int boardId;
    
+   @NotNull
    // 게시물 제목
    @Column(columnDefinition = "varchar(250)")
    private String boardTitle;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.inhatc.spring.dto.SubjectDto;
 import kr.inhatc.spring.model.SubjectStudent;
 import kr.inhatc.spring.repository.SubjectStudentRepository;
 import kr.inhatc.spring.service.SubjectStudentService;
@@ -34,14 +35,19 @@ public class StudentController {
 	@GetMapping("/studentList")
 	public String subjectList(Model model,
 			@PageableDefault(size = 10, sort = "seq", 
-			direction = Sort.Direction.DESC) Pageable pageable) {
+			direction = Sort.Direction.DESC) Pageable pageable, SubjectDto subjectDto) {
 		Page<SubjectStudent> subjectStudentDtoList = null;
+		
 		subjectStudentDtoList = SubjectStudentRepository.findAll(pageable);
+		
 		int startPage = Math.max(1, subjectStudentDtoList.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(subjectStudentDtoList.getTotalPages(), subjectStudentDtoList.getPageable().getPageNumber() + 4);
+		
 		model.addAttribute("startPage", startPage); // (key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage); // (key, value)형태로 view에 전달
 		model.addAttribute("studentList", subjectStudentDtoList); // (key, value)형태로 view에 전달
+		model.addAttribute("subject", subjectDto);
+		
 		return "student/studentList";
 	}
 	

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:insert="/fragments/config.html">
+<title>인하공업전문대학</title>
+</head>
+<th:block
+	th:replace="~{fragments/header :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<div class="container-fluid">
+			<div class="row">
+				<h3 class="m-2">주차 정보</h3>
+			</div>
+			<div class="row">
+				<div class="col mb-3 offset-9">
+					<a class="btn btn-primary" th:href="@{/weekPost}" role="button">주차추가</a>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table table-bordered ml-5" style="width:70%;" th:each="weekPost : ${weekList}">
+					<thead class="thead-light">
+						<tr class="text-center"> 
+							<th colspan="4" th:utext="${weekPost.weekNumber} + ' 주차<br/>' +
+ 								${weekPost.startDate} + ' ~ ' + ${weekPost.endDate}">
+							</th>
+							<th><a class="btn" th:href="@{'/weekPost/weekEdit/' + ${weekPost.weekId}}">+</a></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr class="text-center">
+							<th scope="col" style="width: 15%;">영상</th>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+						</tr>
+						<tr class="text-center">
+							<th scope="col" style="width: 15%;">자료</th>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+						</tr>
+						<tr class="text-center">
+							<th scope="col" style="width: 15%;">과제</th>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</th:block>
+</th:block>
+</html>
