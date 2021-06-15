@@ -39,10 +39,12 @@ public class WeekController {
 	}
 	
 	// 주차정보 리스트
-	@GetMapping("/weekList")
-	public String weekList(Model model, 
-			@PageableDefault(size=10, sort="weekNumber", direction = Sort.Direction.ASC) Pageable pageable) {
+	@GetMapping("/weekList/{seq}")
+	public String weekList(@PathVariable("seq") int seq, Model model, 
+			@PageableDefault(size=10, sort="weekNumber", direction = Sort.Direction.ASC) Pageable pageable, SubjectDto subjectDto) {
 		Page<Week> weekDtoList = null;
+		subjectDto = subjectService.getSubject(seq);
+		
 		weekDtoList = weekRepository.findAll(pageable);
 		
 		int startPage = Math.max(1, weekDtoList.getPageable().getPageNumber() - 4);
@@ -51,6 +53,8 @@ public class WeekController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("weekList", weekDtoList);
+		
+		model.addAttribute("subject", subjectDto);
 		
 		return "week/weekList";
 	}

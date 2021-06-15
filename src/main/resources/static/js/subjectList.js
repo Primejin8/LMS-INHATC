@@ -28,3 +28,9 @@ function btnSubjectAdd(seq, empSeq, empName, subName) {
 		}
 	});
 }
+
+function search() {
+	var searchType = $('#searchType').val();
+	var searchText = $('#searchText').val();
+	location.href = `/subjectList?searchType=${searchType}&searchText=${searchText}`;
+}

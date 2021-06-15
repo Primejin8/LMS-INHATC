@@ -12,7 +12,7 @@ import kr.inhatc.spring.model.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Integer>{
 
-	Page<Board> findAllByboardTitleContaining(String boardContent, Pageable pageable);
+	Page<Board> findAllByboardTitleContaining(String boardTitle, Pageable pageable);
 	Page<Board> findAllByboardContentContaining(String boardContent, Pageable pageable);
 	Page<Board> findAllByboardWriterContaining(String boardWriter, Pageable pageable);
 	@Transactional

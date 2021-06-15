@@ -12,6 +12,23 @@
 	<th:block th:fragment="content">
 		<h3 class="m-3">강의 목록</h3>
 		<div class="container-fluid">
+			<form class="form-inline d-flex justify-content-end">
+				&nbsp; 
+				<select id="searchType" class="form-select mb-2"
+					style="width: 90px;"
+					aria-label="Default select example">
+					<option value="all">전체</option>
+					<option value="subname">강의이름</option>
+					<option value="empname">교수명</option>
+				</select>
+				<div class="form-group mx-sm-3 mb-2">
+					<label for="searchText" class="sr-only">검색</label> <input
+						type="text" class="form-control" id="searchText" name="searchText"
+						th:value="${param.searchText}">
+				</div>
+				<button type="button" class="btn btn-primary mb-2"
+					onclick="search();">검색</button>
+			</form>
 			<table class="table">
 				<thead class="thead-light">
 					<tr class="text-center">
@@ -41,6 +58,32 @@
 					</tr>
 				</tbody>
 			</table>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item"
+						th:classappend="${1 == subjectList.pageable.pageNumber + 1 } ? 'disabled'">
+						<a class="page-link" href="#"
+						th:href="@{/subjectList(page=${subjectList.pageable.pageNumber - 1}, 
+							searchType = ${param.searchType}, 
+							searchText = ${param.searchText} )}"
+						tabindex="-1" aria-disabled="true">Previous</a>
+					</li>
+					<li class="page-item"
+						th:classappend="${i == subjectList.pageable.pageNumber + 1 } ? 'disabled'"
+						th:if="${subjectList.totalPages}>=1"
+						th:each="i : ${#numbers.sequence(startPage, endPage)}"><a
+						class="page-link" href="#"
+						th:href="@{/subjectList(page=${i - 1}, searchType = ${param.searchType}, searchText = ${param.searchText} )}"
+						th:text="${i}">1</a></li>
+					<li class="page-item"
+						th:classappend="${subjectList.totalPages == subjectList.pageable.pageNumber + 1 } ? 'disabled'">
+						<a class="page-link" href="#"
+						th:href="@{/subjectList(page=${subjectList.pageable.pageNumber + 1}, 
+							searchType = ${param.searchType}, 
+							searchText = ${param.searchText} )}">Next</a>
+					</li>
+				</ul>
+			</nav>
 			<div id="subjectAdd">
 				<div class="row">
 					<div class="col">

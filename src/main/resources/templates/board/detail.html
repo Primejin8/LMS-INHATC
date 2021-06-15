@@ -35,7 +35,7 @@
 		</div>
 
 		<!-- 글 수정 / 삭제 -->
-		<div class="row mt-3 justify-content-end">
+		<div class="row mt-3 justify-content-end" th:if="${session.name} == ${post.boardWriter}">
 				<div class="col-auto mr-auto"></div>
 				<div class="col-auto">
 					<a class="btn btn-info" th:href="@{'/post/edit/' + ${post.boardId}}"
@@ -68,7 +68,7 @@
 			<div class="card-header">댓글 리스트</div>
 			<ul id="comment--box" class="list-group">
 				<li th:each="comment : ${commentList}" id="comment" class="list-group-item d-flex justify-content-between">
-					<div>
+					<div th:if="${comment.boardId} == ${post.boardId}">
 						<div th:text="${comment.commentWriter}"></div>
 						<div th:utext="'&nbsp;&nbsp;&nbsp;-&nbsp;' + ${comment.commentContent}" style="color: #787878;"></div>
 					</div>
