@@ -72,7 +72,6 @@ public class BoardController {
 	private LikeInfoService likeInfoService;
 	@Autowired
 	private CommentService commentService;
-
 //	없어도 되는 생성자?
 //	public BoardController(BoardService boardService) {
 //		this.boardService = boardService;
@@ -187,10 +186,11 @@ public class BoardController {
 	// 댓글 작성
 	@PostMapping("/post/{boardId}")
 	public String comment(@PathVariable("boardId") int boardId, CommentDto commentDto, Model model) {
-		commentService.saveComment(commentDto);
 		commentDto.setBoardId(boardId);
+		commentService.saveComment(commentDto);
 		
 		model.addAttribute("comment", commentDto);
+		
 		return "redirect:/post/{boardId}";
 	}
 

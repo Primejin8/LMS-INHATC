@@ -9,12 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.inhatc.spring.dto.CommentDto;
 import kr.inhatc.spring.model.Comment;
+import kr.inhatc.spring.repository.BoardRepository;
 import kr.inhatc.spring.repository.CommentRepository;
 
 @Service
 public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
+	
+	public CommentService(CommentRepository commentRepository) {
+		this.commentRepository = commentRepository;
+	}
 	
 	@Transactional
 	public int saveComment(CommentDto commentDto) {

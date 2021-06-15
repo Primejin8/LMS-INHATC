@@ -76,6 +76,7 @@ public class SubjectController {
 		model.addAttribute("startPage", startPage); // (key, value)형태로 view에 전달
 		model.addAttribute("endPage", endPage); // (key, value)형태로 view에 전달
 		model.addAttribute("subjectList", subjectDtoList); // (key, value)형태로 view에 전달
+		
 		return "subject/subjectList";
 	}
 

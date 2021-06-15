@@ -39,11 +39,10 @@ public class WeekController {
 	}
 	
 	// 주차정보 리스트
-	@GetMapping("/weekList/{seq}")
-	public String weekList(@PathVariable("seq") int seq, Model model, 
+	@GetMapping("/weekList")
+	public String weekList(Model model, 
 			@PageableDefault(size=10, sort="weekNumber", direction = Sort.Direction.ASC) Pageable pageable, SubjectDto subjectDto) {
 		Page<Week> weekDtoList = null;
-		subjectDto = subjectService.getSubject(seq);
 		
 		weekDtoList = weekRepository.findAll(pageable);
 		
@@ -54,8 +53,6 @@ public class WeekController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("weekList", weekDtoList);
 		
-		model.addAttribute("subject", subjectDto);
-		
 		return "week/weekList";
 	}
 	
@@ -64,8 +61,8 @@ public class WeekController {
 	public String detail(@PathVariable("weekId") int weekId, Model model) {
 		WeekDto weekDto = weekService.getWeek(weekId);
 		
-		
 		weekService.saveWeek(weekDto);
+		
 		model.addAttribute("weekPost", weekDto);
 		return "week/weekDetail";
 	}
@@ -77,8 +74,10 @@ public class WeekController {
 	}
 	
 	@PostMapping("/weekPost")
-	public String write(WeekDto weekDto) {
+	public String write(WeekDto weekDto, SubjectDto subjectDto) {
+		weekDto.setSubId(subjectDto.getSeq());
 		weekService.saveWeek(weekDto);
+		
 		return "redirect:/weekList";
 	}
 	

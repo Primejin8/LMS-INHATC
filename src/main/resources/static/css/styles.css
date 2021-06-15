@@ -5021,7 +5021,6 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .list-group {
-  display: flex;
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;

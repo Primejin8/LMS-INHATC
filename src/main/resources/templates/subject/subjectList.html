@@ -52,7 +52,7 @@
 						<td><span th:text="${list.stuCnt}"></span></td>
 						<td>
 							<a type="submit" class="btn btn-danger" 
-								th:onclick="javascript:btnSubjectAdd([[${list.seq}]], [[${session.id}]], [[${session.name}]], [[${list.subName}]] )" 
+								th:onclick="javascript:btnSubjectAdd([[${list.seq}]], [[${session.id}]], [[${session.name}]], [[${list.subName}]] ), msg()" 
 								style="font-size: 10px;">추가</a>
 						</td>
 					</tr>
@@ -100,5 +100,8 @@
 		if(role != "ROLE_PROF")
 			$('#subjectAdd').hide();
 	});
+	function msg(){
+		alert("강의를 추가했습니다.");
+	}
 </script>
 </html>

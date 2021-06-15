@@ -19,7 +19,7 @@
 	<body>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar-->
-			<div class="border-right dis" id="sidebar-wrapper" style="height: 100%; width: 20%;">
+			<div class="border-right dis" id="sidebar-wrapper" style="height: 100%; width: 20%; background-color: black;">
 				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem; height: 10%;">
 					<div class="row">
 						<div class="col">
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="list-group list-group-flush" style="height:80%; width: 100%;">
+				<div class="list-group list-group-flush" style="height:100%; width: 100%;">
 					<a class="list-group-item list-group-item-action sidebar" href="/studentList">내 강의실</a>
 					<a class="list-group-item list-group-item-action sidebar" href="/subjectList">강의 목록</a>
 					<a class="list-group-item list-group-item-action sidebar" href="/boardList">토론방</a>
@@ -51,7 +51,7 @@
 						</form>
 					</div>
 				</nav>
-				<div class="container-fluid" style="overflow-y: scroll">
+				<div class="container-fluid col-11">
 					<th:block th:insert="${content}"></th:block>
 				</div>
 			</div>
