@@ -4,6 +4,12 @@
 <head th:replace="/fragments/config.html">
 	<title>인하공업전문대학</title>
 </head>
+<style>
+body{
+background-image:url("/img/inhaindex.jpg");
+background-size: cover;
+}
+</style>
 <th:block th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
 		<div class="container-fluid">

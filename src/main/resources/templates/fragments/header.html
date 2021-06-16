@@ -6,8 +6,7 @@
 		background-color: #00aaff;
 	}
 	.sidebar {
-		color: #c8c8c8;
-		background-color: #191919;
+		color: black;
 		text-align: center;
 	}
 	@media (max-width: 1200px){
@@ -15,12 +14,21 @@
 			display:none;
 		}
 	}
+	
+	.user__name {
+		font-size: 13px;
+		color : #e6e6e6;
+	}
 </style>
 	<body>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar-->
+<!--  
 			<div class="border-right dis" id="sidebar-wrapper" style="height: 100%; width: 20%; background-color: #191919;">
 				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem; height: 10%; background-color: white;">
+-->
+			<div id="sidebar-wrapper" class="border-right dis" style="height: 100%; width: 20%; background-color: white;">
+				<div class="sidebar-heading" style="padding: 0.875rem 1.25rem; font-size: 1.2rem; background-color: white;">
 					<div class="row">
 						<div class="col">
 							<img alt="인하공업전문대학" src="/img/logo2.png" style=" width:100%;">
@@ -36,10 +44,19 @@
 			
 			<!-- Page Content-->
 			<div id="page-content-wrapper" style= "width: 100%;">
-				<nav class="navbar navbar-light border-bottom header justify-content-between"
+				<nav class="navbar-light  header justify-content-between"
 					style="height: 70px; position: relative; display: flex; flex-wrap: wrap; 
-					align-items: center; justify-content: space-between; padding: 0.5rem 1rem;">
-					<a class="nav-link" href="/index" style="color: black">HOME</a>
+					align-items: center; justify-content: space-between; padding: 0rem 1rem;">
+					<a class="nav-link" href="/index" style="color: black">Home</a>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div>
+						<p class="user__name mt-3" th:utext="${session.name} + '<br/>' + ${session.username}"></p>
+					</div>
+					
 					<!-- 로그아웃 -->
 					<div> 
 					<a href="/logout"
