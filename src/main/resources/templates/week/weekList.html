@@ -12,7 +12,7 @@
 				<h3 class="m-2">주차 정보</h3>
 			</div>
 			<div class="row">
-				<div class="col mb-3 offset-9">
+				<div class="col mb-3 offset-9" th:if="${session.role} == 'ROLE_PROF'">
 					<a class="btn btn-primary" th:href="@{/weekPost}" role="button">주차추가</a>
 				</div>
 			</div>

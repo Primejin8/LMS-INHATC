@@ -4,10 +4,18 @@
 <head th:replace="/fragments/config.html">
 	<title>인하공업전문대학</title>
 </head>
+<style>
+	.main{
+		background-image: url("/img/index.jpeg");
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+</style>
 <th:block th:replace="~{fragments/header :: setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<div class="container-fluid">
-		</div>
+		<body class="main">
+		
+		</body>
 	</th:block>
 </th:block>
 </html>
