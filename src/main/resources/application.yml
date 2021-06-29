@@ -13,8 +13,12 @@ spring:
     url: jdbc:mysql://114.71.137.174:61083/security?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
-  servlet:    multipart:      max-file-size: 100MB
-      max-request-size: 100MB                
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+        
+        
     
 #  mvc:
 #    view:
@@ -23,7 +27,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update #create update none
+      ddl-auto: create #create update none
 #     PhysicalNaming -> 변수 이름을 준대로 DB에도 똑같이 저장하는건데 
 #     자바에는 카멜표기법, DB에는 스네이크 표기법을 적용하기 위해 주석처리함       
 #      naming:
